@@ -51,6 +51,7 @@ public class Game {
 
     private char randCol() {
         // TODO implement
+	Random randCol = new Random();
         return 'X';
     }
 
