@@ -2,7 +2,8 @@ package cs361.battleships.models;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertEquals;
 
 public class ResultTest {
 
@@ -12,7 +13,7 @@ public class ResultTest {
         Result result = new Result();
         result.setLocation(square);
         result.setResult(AtackStatus.MISS);
-        assertTrue(square.equals(result.getLocation()));
-        assertTrue(AtackStatus.MISS == result.getResult());
+        assertSame(square,result.getLocation());
+        assertEquals(AtackStatus.MISS,result.getResult());
     }
 }
