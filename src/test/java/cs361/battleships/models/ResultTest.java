@@ -2,13 +2,17 @@ package cs361.battleships.models;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ResultTest {
 
     @Test
-    public void testInvalidPlacement() {
-        Board board = new Board();
-        assertFalse(board.placeShip(new Ship("MINESWEEPER"), 11, 'C', true));
+    public void testResultObjectCreate() {
+        Square square = new Square(5, 'b');
+        Result result = new Result();
+        result.setLocation(square);
+        result.setResult(AtackStatus.MISS);
+        assertTrue(square.equals(result.getLocation()));
+        assertTrue(AtackStatus.MISS == result.getResult());
     }
 }
