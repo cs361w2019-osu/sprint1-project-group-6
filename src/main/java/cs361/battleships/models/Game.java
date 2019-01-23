@@ -50,20 +50,20 @@ public class Game {
         return true;
     }
 
-    private char randCol() {
+    public char randCol() {
         //Column = 10
         Random rand = new Random();
-     	char randChar = (char) (65 + rand.nextInt(10));
+     	  char randChar = (char) (65 + rand.nextInt(10));
         return randChar;
     }
 
-    private int randRow() {
+    public int randRow() {
         Random rand = new Random();
         int x = rand.nextInt(10)+1; // Select from 1 to 10 for Row(x-axis).
         return x;
     }
 
-    private boolean randVertical() {
+    public boolean randVertical() {
         Random randBoolean = new Random(); //Create random obj
         boolean randDirect = randBoolean.nextBoolean(); //Get next boolean value
         return randDirect;

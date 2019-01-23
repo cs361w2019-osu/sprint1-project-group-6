@@ -1,3 +1,4 @@
+
 package cs361.battleships.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,18 +8,57 @@ import java.util.List;
 
 public class Ship {
 
-	@JsonProperty private List<Square> occupiedSquares;
+	@JsonProperty private List<Square> occupiedSquares = new ArrayList<>();
+
+	private String kind;
+	private int length = 0;
+	public int health = 0;
 
 	public Ship() {
-		occupiedSquares = new ArrayList<>();
 	}
-	
+
 	public Ship(String kind) {
-		//TODO implement
+		this.kind = kind;
+		if (kind.equals("MINESWEEPER")) {
+			length = 2;
+		} else if (kind.equals("DESTROYER")) {
+			length = 3;
+		} else if (kind.equals("BATTLESHIP")) {
+			length = 4;
+		}
+		this.health = length;
 	}
 
 	public List<Square> getOccupiedSquares() {
-		//TODO implement
-		return null;
+		return occupiedSquares;
+	}
+
+	public void setOccupiedSquares(List<Square> newOccupiedSquares) {
+		if (!occupiedSquares.isEmpty()) {
+			occupiedSquares.clear();
+		}
+		for(Square square : newOccupiedSquares) {
+			occupiedSquares.add(square);
+		}
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void hitShip() {
+		this.health -= 1;
+	}
+
+	public int isDead() {
+		if(this.health <= 0) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }

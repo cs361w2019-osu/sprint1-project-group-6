@@ -16,23 +16,30 @@ public class GameTest {
     @Test
     public void testRandomColumn() {
         Game game = new Game();
-        int max=10;
-        int min=1;
-        for(i=0 ;i< 100 ;i++) //Run the function 100times
+        char max='J';
+        char min='A';
+        for(int i=0 ;i< 100 ;i++) //Run the function 100times
         {
-            game.randCol();
-            assertTrue(min <= game.randCol() <= max );
+            int randCol = game.randCol();
+            assertTrue(min <= randCol && randCol <= max );
         }
     }
 
     @Test
     public void testRandomRow() {
         Game game = new Game();
-        for (i = 0; i < 100; i++) {
-            game.randRow();
-            assertTrue(1 <= game.randRow()<=10)
+        for (int i = 0; i < 100; i++) {
+            int randRow = game.randRow();
+            assertTrue(1 <= randRow && randRow <= 10);
         }
     }
-
+    
+    @Test
+    public void testVertical() {
+        Game game = new Game();
+        boolean randVert = game.randVertical();
+        assertTrue(randVert);
     }
+
 }
+
