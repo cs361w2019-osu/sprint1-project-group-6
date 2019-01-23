@@ -50,18 +50,17 @@ public class Game {
     }
 
     private char randCol() {
-       //Column = 10
+        //Column = 10
         Random rand = new Random();
         int MaxShipLength = 4; //Maxium ship length is 4
-        int y = rand.nextInt(10); // Select from 1 to 10 for Column(y-axis).
-        int Shipsize = rand.ints(MaxShipLength);//Max size of ship is 4;
+        char randChar = (char) (65 + rand.nextInt(74)); ; // Select from 1 to 10 for Column(y-axis).
         return 'X';
     }
 
     private int randRow() {
         Random rand = new Random();
         int x = rand.nextInt(10); // Select from 1 to 10 for Row(x-axis).
-        return 0;
+        return x;
     }
 
     private boolean randVertical() {
