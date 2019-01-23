@@ -34,10 +34,5 @@ public class GameTest {
         }
     }
 
-    @Test
-    public void testRandomVertical() {
-        Game game = new Game();
-
-    }
     }
 }
