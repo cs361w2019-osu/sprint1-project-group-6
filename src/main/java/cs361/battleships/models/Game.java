@@ -53,22 +53,19 @@ public class Game {
     private char randCol() {
         //Column = 10
         Random rand = new Random();
-        int MaxShipLength = 4; //Maxium ship length is 4
-        char randChar = (char) (65 + rand.nextInt(74)); ; // Select from 1 to 10 for Column(y-axis).
-        return 'X';
+     	char randChar = (char) (65 + rand.nextInt(10));
+        return randChar;
     }
 
     private int randRow() {
         Random rand = new Random();
-        int x = rand.nextInt(10); // Select from 1 to 10 for Row(x-axis).
+        int x = rand.nextInt(10)+1; // Select from 1 to 10 for Row(x-axis).
         return x;
     }
 
     private boolean randVertical() {
         Random randBoolean = new Random(); //Create random obj
         boolean randDirect = randBoolean.nextBoolean(); //Get next boolean value
-        int MaxShipLength = 4; //The max of ship length is 4.
-        int Shipsize = randBoolean.ints(MaxShipLength); //Randomize the size of ship, max length is 4.
         return randDirect;
     }
 }
