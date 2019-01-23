@@ -30,17 +30,6 @@ public class Board {
 			}
 		}
 
-		// Check if there is already a ship in this location
-		for (Square locToCheck : shipLoc) {
-			for (Ship shipToCheck : placedShips) {
-				for (Square shipCheckLocToCheck : shipToCheck.getOccupiedSquares()) {
-					if (locToCheck.getRow() == shipCheckLocToCheck.getRow() && locToCheck.getColumn() == shipCheckLocToCheck.getColumn()) {
-						return false;
-					}
-				}
-			}
-		}
-
 		// Calculate the location of the ship based off of type, starting location, and verticality
 		if (isVertical) {
 			if (x + ship.getLength() < 11 && x > 0) {
@@ -60,9 +49,19 @@ public class Board {
 			}
 		}
 
+		// Check if there is already a ship in this location
+		for (Square locToCheck : shipLoc) {
+			for (Ship shipToCheck : placedShips) {
+				for (Square shipCheckLocToCheck : shipToCheck.getOccupiedSquares()) {
+					if (locToCheck.getRow() == shipCheckLocToCheck.getRow() && locToCheck.getColumn() == shipCheckLocToCheck.getColumn()) {
+						return false;
+					}
+				}
+			}
+		}
+
 		Ship newShip = new Ship(ship.getKind());
 		newShip.setOccupiedSquares(shipLoc);
-		System.out.println("adding new ship here with health " + newShip.health);
 		placedShips.add(newShip);
 		return true;
 	}

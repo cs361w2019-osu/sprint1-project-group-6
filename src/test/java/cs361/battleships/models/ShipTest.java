@@ -14,24 +14,24 @@ public class ShipTest {
         Ship shipBattleship = new Ship("BATTLESHIP");
 
         shipMinesweeper.hitShip();
-        assertFalse(shipMinesweeper.isDead());
+        assertFalse(shipMinesweeper.isDead() == 1);
         shipMinesweeper.hitShip();
-        assertTrue(shipMinesweeper.isDead());
+        assertTrue(shipMinesweeper.isDead() == 1);
 
         shipDestroyer.hitShip();
-        assertFalse(shipDestroyer.isDead());
+        assertFalse(shipDestroyer.isDead() == 1);
         shipDestroyer.hitShip();
-        assertFalse(shipDestroyer.isDead());
+        assertFalse(shipDestroyer.isDead() == 1);
         shipDestroyer.hitShip();
-        assertTrue(shipDestroyer.isDead());
+        assertTrue(shipDestroyer.isDead() == 1);
 
         shipBattleship.hitShip();
-        assertFalse(shipBattleship.isDead());
+        assertFalse(shipBattleship.isDead() == 1);
         shipBattleship.hitShip();
-        assertFalse(shipBattleship.isDead());
+        assertFalse(shipBattleship.isDead() == 1);
         shipBattleship.hitShip();
-        assertFalse(shipBattleship.isDead());
+        assertFalse(shipBattleship.isDead() == 1);
         shipBattleship.hitShip();
-        assertTrue(shipBattleship.isDead());
+        assertTrue(shipBattleship.isDead() == 1);
     }
 }
