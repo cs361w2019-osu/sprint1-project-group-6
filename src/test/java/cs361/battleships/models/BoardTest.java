@@ -31,7 +31,7 @@ public class BoardTest {
     public void testTwoShipsSameLoc() {
         Board board = new Board();
         assertTrue(board.placeShip(new Ship("MINESWEEPER"), 5, 'C', true));
-        assertFalse(board.placeShip(new Ship("DESTROYER"), 4, 'C', true));
+        assertFalse(board.placeShip(new Ship("DESTROYER"), 5, 'C', true));
     }
 
     @Test
