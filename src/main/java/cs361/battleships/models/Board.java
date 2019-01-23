@@ -59,9 +59,9 @@ public class Board {
 				return false;
 			}
 		}
-
-		ship.setOccupiedSquares(shipLoc);
-		this.placedShips.add(ship);
+		Ship newShip = new Ship(ship.getKind());
+		newShip.setOccupiedSquares(shipLoc);
+		this.placedShips.add(newShip);
 		return true;
 	}
 
