@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static cs361.battleships.models.AtackStatus.*;
 
@@ -67,7 +68,7 @@ public class Game {
         Random randBoolean = new Random(); //Create random obj
         boolean randDirect = randBoolean.nextBoolean(); //Get next boolean value
         int MaxShipLength = 4; //The max of ship length is 4.
-        int Shipsize = randBoolean.ints(MaxShipLength); //Randomize the size of ship, max length is 4.
+        int Shipsize = randBoolean.nextInt(MaxShipLength) + 1; //Randomize the size of ship, max length is 4.
         return randDirect;
     }
 }
