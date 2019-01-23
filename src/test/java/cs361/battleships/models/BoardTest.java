@@ -73,6 +73,13 @@ public class BoardTest {
         board.attack(1, 'A');
         board.attack(2, 'A');
         assertTrue(board.attack(3, 'A').getResult() == AtackStatus.SURRENDER);
+    }
+
+    @Test
+    public void testShipPlacementCoords() {
+        Board board = new Board();
+        board.placeShip(new Ship("MINESWEEPER"), 5, 'C', true);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 5);
 
     }
 }

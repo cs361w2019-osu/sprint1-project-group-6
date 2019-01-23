@@ -24,21 +24,8 @@ public class Board {
 		// TODO Implement
 		List<Square> shipLoc = new ArrayList<>();
 
-		// Calculate the location of the ship based off of type, starting location, and verticality
-		if (isVertical) {
-			if (x + ship.getSize() < 11 && x > 0) {
-				for (int i = 0; i < ship.getSize(); i++) {
-					shipLoc.add(new Square(x + i, y));
-				}
-			} else {
-				return false;
-			}
-		} else {
-			if (y + ship.getSize() - 'A' < 11 && y >= 'A') {
-				for (int i = 0; i < ship.getSize(); i++) {
-					shipLoc.add(new Square(x, (char)(y + i)));
-				}
-			} else {
+		for(Ship shipToCheck : placedShips) {
+			if(shipToCheck.getKind().equals(ship.getKind())) {
 				return false;
 			}
 		}
@@ -54,14 +41,29 @@ public class Board {
 			}
 		}
 
-		for(Ship shipToCheck : placedShips) {
-			if(shipToCheck.getKind() == ship.getKind()) {
+		// Calculate the location of the ship based off of type, starting location, and verticality
+		if (isVertical) {
+			if (x + ship.getLength() < 11 && x > 0) {
+				for (int i = 0; i < ship.getLength(); i++) {
+					shipLoc.add(new Square(x + i, y));
+				}
+			} else {
+				return false;
+			}
+		} else {
+			if (y + ship.getLength() - 'A' < 11 && y >= 'A') {
+				for (int i = 0; i < ship.getLength(); i++) {
+					shipLoc.add(new Square(x, (char)(y + i)));
+				}
+			} else {
 				return false;
 			}
 		}
+
 		Ship newShip = new Ship(ship.getKind());
 		newShip.setOccupiedSquares(shipLoc);
-		this.placedShips.add(newShip);
+		System.out.println("adding new ship here with health " + newShip.health);
+		placedShips.add(newShip);
 		return true;
 	}
 
@@ -91,7 +93,7 @@ public class Board {
 				if(shipSquare.getRow() == atkRes.getLocation().getRow() && shipSquare.getColumn() == atkRes.getLocation().getColumn()) {
 					atkRes.setResult(AtackStatus.HIT);
 					ship.hitShip();
-					if(ship.isDead()) {
+					if(ship.isDead() == 1) {
 						atkRes.setResult(AtackStatus.SUNK);
 					}
 
@@ -112,7 +114,7 @@ public class Board {
 
 	public boolean allShipsSunk() {
 		for(Ship ship : this.placedShips) {
-			if(!ship.isDead()) {
+			if(ship.isDead() != 1) {
 				return false;
 			}
 		}
