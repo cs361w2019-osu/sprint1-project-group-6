@@ -8,12 +8,12 @@
 
 .battleGrid tr {
     border: 1px solid black;
-    height: 30px;
+    height: 50px;
 }
 
 .battleGrid td {
     border: 1px solid black;
-    width: 30px;
+    min-width: 46px;
 }
 
 td:hover {
