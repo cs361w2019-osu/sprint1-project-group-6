@@ -1,6 +1,12 @@
 /* Add additional stylesheets below
 -------------------------------------------------- */
 
+.flipeButton{
+    height: 100px;
+    border: 5px solid grey;
+    border-radius: 50%;
+    background-color: lightgray;
+}
 .battleGrid {
     border: 1px solid black;
     border-spacing: 0px;

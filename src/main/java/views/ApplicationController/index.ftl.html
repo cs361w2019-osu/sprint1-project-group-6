@@ -1,9 +1,19 @@
 <#import "../layout/defaultLayout.ftl.html" as layout> 
-<@layout.myLayout "Home page">    
+<@layout.myLayout "Home page">
 
+<h1 style="font-size:50px; font-family:'Georgia';"> BATTLESHIP
 
-<h1>The Battleship game</h1>
+    <button id="reset" onclick="location.reload();" style="font-size: 50px; font-family: Georgia; float: right; margin-right: 5px">Reset</button>
 
+    <button id="tutorial" onclick="window.location.href = './tutorial.html';" style="font-size:50px; font-family: Georgia; float: right; margin-right: 15px"> Tutorial</button>
+</h1>
+<!-----Buttons that wait to be placed.---->
+<h2>
+    Player Name:<br>
+    <input type="text" name="playerName" style="float: bottom"><br>
+    <button id="flip" style="font-size:50px; font-family: Georgia;float: right" class="flipeButton">Flip</button>
+</h2>
+<!----------------------------------------->
 <div class="container" align="center" style="display: flex">
     <table id="player" class="battleGrid flex-item" align="center" style="margin: auto 20px auto auto">
     </table>
@@ -27,6 +37,7 @@
     <li><button id="place_destroyer">Place Destroyer</button></li>
     <li><button id="place_battleship">Place Battleship</button></li>
     <li><input type="checkbox" id="is_vertical">Vertical</input></li>
+
 </ul>
 
 <script type="text/javascript" src="/assets/game.js"></script>
