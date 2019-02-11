@@ -65,7 +65,7 @@ td:hover {
 .flipButton{
     margin:4px 110px 4px 4px;
     background-color:#EFEFEF;
-    overflow:auto;
+    overflow:hidden;
     height: 75px;
     width: 75px;
     float: right;
