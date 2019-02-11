@@ -1,6 +1,12 @@
 /* Add additional stylesheets below
 -------------------------------------------------- */
 
+.flipeButton{
+    height: 100px;
+    border: 5px solid grey;
+    border-radius: 50%;
+    background-color: lightgray;
+}
 .battleGrid {
     border: 1px solid black;
     border-spacing: 0px;
@@ -41,27 +47,35 @@
 }
 
 .tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted #3a3a3a;
+    float: right;
+    margin-bottom: 35px;
+    margin-right: 30px;
+    margin-top: -10px;
+    display: inline-block;
+    border-bottom: 1px dotted #3a3a3a;
 }
 
 .tooltip .tooltiptext {
-  visibility: hidden;
-  width: 350px;
-  background-color: #3a3a3a;
-  color: #cecece;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 40px 0px 5px;
+    visibility: hidden;
+    top: -10px;
+    font-size: 25%;
+    background-color: #3a3a3a;
+    color: #cecece;
+    width: 350px;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 40px 0px 5px;
 
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
+    /* Position the tooltip */
+    position: fixed;
+    z-index: 1;
 }
 
 .tooltip:hover .tooltiptext {
-  visibility: visible;
+    visibility: visible;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #3a3a3a;
 }
 
 th {
