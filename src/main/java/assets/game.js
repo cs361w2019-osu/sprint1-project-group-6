@@ -157,6 +157,8 @@ function cellClick() {
             placedShips++;
             if (placedShips == 3) {
                 isSetup = false;
+                document.getElementById("scoreCardDiv").style.display = "block";
+                document.getElementById("placeShipsDiv").style.display = "none";
                 registerCellListener((e) => {});
             }
         });

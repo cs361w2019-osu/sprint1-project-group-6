@@ -99,6 +99,7 @@
 .flipButton input:checked + span {
     background-color:#606060;
     color:#fff;
+}
  
 .tooltip {
     float: right;
