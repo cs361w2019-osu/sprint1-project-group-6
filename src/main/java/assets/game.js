@@ -48,6 +48,7 @@ function markHits(board, elementId, surrenderText) {
                 color = "green";
             }
             printMsgCustom(surrenderText, color);
+            alert(surrenderText);
         }
         document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
     });
@@ -87,12 +88,20 @@ function printMsg(elementId, result) {
 
 function printMsgCustom(msg, color) {
 
+    var out = document.getElementById("messageBoxDiv");
+    const isScrolledToBottom = out.scrollHeight - out.clientHeight <= out.scrollTop + 1
+
     var span = document.createElement("SPAN");
     span.textContent = msg;
     span.style.color = color;
     let br = document.createElement('br');
     span.appendChild(br);
-    document.getElementById("messageBoxDiv").appendChild(span);
+    out.appendChild(span);
+
+    // scroll to bottom if isScrolledToBottom is true
+    if (isScrolledToBottom) {
+      out.scrollTop = out.scrollHeight - out.clientHeight
+    }
 }
 
 function redrawGrid() {
