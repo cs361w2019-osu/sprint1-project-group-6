@@ -12,7 +12,6 @@ public class Routes implements ApplicationRoutes {
     public void init(Router router) {
 
         router.GET().route("/").with(ApplicationController::index);
-        router.GET().route("/tutorial.html").with(AssetsController.class, "serveStatic");
         router.GET().route("/game").with(ApplicationController::newGame);
         router.POST().route("/place").with(ApplicationController::placeShip);
         router.POST().route("/attack").with(ApplicationController::attack);
