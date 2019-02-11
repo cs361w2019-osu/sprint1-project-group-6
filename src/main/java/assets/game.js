@@ -124,6 +124,16 @@ function place(size) {
     }
 }
 
+function displayName() {
+    var x = document.getElementById("myName");
+    var n = "";
+    var i;
+    for(i=0;i<x.length;i++){
+        n += x.elements[i].value + "<br>";
+    }
+    document.getElementById("print").innerHTML = n;
+}
+
 function initGame() {
     makeGrid(document.getElementById("opponent"), false);
     makeGrid(document.getElementById("player"), true);

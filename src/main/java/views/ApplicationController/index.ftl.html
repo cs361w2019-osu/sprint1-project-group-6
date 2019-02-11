@@ -1,19 +1,47 @@
 <#import "../layout/defaultLayout.ftl.html" as layout> 
 <@layout.myLayout "Home page">
 
-<h1 style="font-size:51px; font-family:'Georgia';"> BATTLESHIP
+<h1 style="font-size:51px; font-family:'Georgia'; border-bottom: 10px solid black;"> BATTLESHIP
 
-    <button id="reset" onclick="location.reload();" style="font-size: 50px; font-family: Georgia; float: right; margin-right: 5px">Reset</button>
+    <button id="reset" onclick="location.reload();" style="font-size: 40px; font-family: Georgia; float: right; margin-bottom:10px;margin-right: 5px">Reset</button>
 
-    <button id="tutorial" onclick="window.location.href = './tutorial.html';" style="font-size:50px; font-family: Georgia; float: right; margin-right: 15px"> Tutorial</button>
+    <div class="tooltip">
+        <button style="font-size:40px; font-family: Georgia;">Tutorial</button>
+        <span class="tooltiptext">
+	        <ol>
+	            <li>Player places the 3 ships somewhere on the board.</li>
+	            <ul>
+	                <li>The 3 ships are: Battleship (4), Cruiser (3) and Destroyer (2).</li>
+	                <li>The ships can only be placed vertically or horizontally.</li>
+	                <li>Diagonal placement is not allowed.</li>
+	                <li>No part of a ship may hang off the edge of the board.</li>
+	                <li>Ships may not overlap each other.</li>
+	                <li>No ships may be placed on another ship.</li>
+	            </ul>
+	            <li>AI 's turn to place the 3 ships somewhere on the board.</li>
+	            <ul>
+	                <li>Once the guessing begins, the players may not move the ships.</li>
+	                <li>HIT: If player have correctly selected a space that occupied by one of AIs' ships.</li>
+	                <li>MISSED: If player selected a space that has no ship.</li>
+	                <li>SUNK: When all of player's occupied space for one ship (2,3,4) have been hit.</li>
+	            </ul>
+	            <li>When all of one players' ship have been sunk, the game ends.</li>
+	        </ol>
+	    </span>
+    </div>
+
 </h1>
 <!-----Buttons that wait to be placed.---->
 <h2>
-    Player Name:<br>
-    <input type="text" name="playerName" style="float: bottom"><br>
-    <button id="flip" style="font-size:50px; font-family: Georgia;float: right" class="flipeButton">Flip</button>
+    <form id="myName" action="/action_page.php" style="font-family: Georgia">
+        Player Name:<input class="playerName" type="text" name="playername" name="playerName"><br>
+    </form>
+    <button onclick="displayName()" style="font-family: Georgia; font-size: 20px">Enter</button>
+    <p id="print"></p>
 </h2>
 <!----------------------------------------->
+
+
 <div class="container" align="center" style="display: flex">
     <table id="player" class="battleGrid flex-item" align="center" style="margin: auto 20px auto auto">
     </table>
