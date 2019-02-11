@@ -31,15 +31,6 @@
     </div>
 
 </h1>
-<!-----Buttons that wait to be placed.---->
-<h2>
-    <form id="myName" action="/action_page.php" style="font-family: Georgia">
-        Player Name:<input class="playerName" type="text" name="playername" name="playerName"><br>
-    </form>
-    <button onclick="displayName()" style="font-family: Georgia; font-size: 20px">Enter</button>
-    <p id="print"></p>
-</h2>
-<!----------------------------------------->
 
 <div class="container" align="center" style="display: flex">
     <table id="player" class="battleGrid flex-item" align="center" style="margin: auto 20px auto auto">
@@ -79,6 +70,12 @@
             </table>
         </div>
         <div id="placeShipsDiv">
+            <form id="myName" action="/action_page.php" style="font-family: Georgia">Player Name:<input class="playerName" type="text" name="playerName">
+                <button onclick="displayName()" style="font-family: Georgia; font-size: 15px">Enter</button>
+                <br>
+            </form>
+
+
                 <ul class="ships">
                     <div>
                         <div class="flipButton">
