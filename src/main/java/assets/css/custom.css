@@ -46,6 +46,60 @@
     background-color: blue;
 }
 
+.shipBox {
+  width:15px;
+  height:15px;
+  margin-left:0px;
+  display:inline-block;
+  background-color: #606060;
+  border: 2px solid black;
+}
+
+.inline{
+  display:inline-block;
+}
+
+.placed {
+    background-color: aqua !important;
+    border: 2px solid black;
+}
+
+.ships{
+  list-style-type: none;
+}
+
+.flipButton{
+    margin:4px 110px 4px 4px;
+    background-color:#EFEFEF;
+    overflow:hidden;
+    height: 75px;
+    width: 75px;
+    float: right;
+    display:inline-flex;
+    border-radius: 50%;
+}
+
+.flipButton label {
+    float:left;
+    width:4.0em;
+}
+
+.flipButton label span {
+    text-align:center;
+    padding:27px 50px 30px 25px;
+    display:block;
+    vertical-align: middle;
+}
+
+.flipButton label input {
+    position:absolute;
+    top:-20px;
+}
+
+.flipButton input:checked + span {
+    background-color:#606060;
+    color:#fff;
+ 
 .tooltip {
     float: right;
     margin-bottom: 35px;
