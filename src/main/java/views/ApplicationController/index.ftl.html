@@ -13,21 +13,44 @@
 </div>
 
 <div class="container" align="center" style="display: flex">
-    <div id="messageBoxDiv" class="flex-item" align="center" style="margin: 40px 20px auto auto; height: 200px; width: 500px; text-align: left;">
+    <div id="messageBoxDiv" class="flex-item" align="left" style="margin: 40px 20px auto auto; height: 200px; width: 500px; text-align: left;">
     </div>
 
-    <div id="scoreShipsDiv" class="fixed" align="center" style="margin: 40px auto auto 20px; height: 200px; width: 500px;">
+    <div id="scoreShipsDiv" class="fixed" align="left" style="margin: 40px auto auto 20px; height: 200px; width: 500px;">
         <div id="scoreCardDiv"></div>
-        <div id="placeShipsDiv"></div>
+        <div id="placeShipsDiv">
+                <ul class="ships">
+                    <div>
+                        <div class="flipButton">
+                            <label>
+                                <input type="checkbox" id="is_vertical" name="is_vertical"><span>Flip</span>
+                            </label>
+                        </div>
+                        <li><input type="button" value="Minesweeper" name="shipSelect" id="place_minesweeper" style="margin-right:20px;">
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                        </li>
+                    </div>
+
+                    <li><input type="button" value="Destroyer" name="shipSelect" id="place_destroyer" style="margin-right:41px;">
+                        <div class="shipBox"></div>
+                        <div class="shipBox"></div>
+                        <div class="shipBox"></div>
+                    </li>
+                    <li><input type="button" value="Battleship" name="shipSelect" id="place_battleship" style="margin-right:40px;">
+                        <div class="inline">
+                            <div class="shipBox""></div>
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                        </div>
+                    </li>
+                </ul>
+        </div>
     </div>
 </div>
 
-<ul>
-    <li><button id="place_minesweeper">Place Minesweeper</button></li>
-    <li><button id="place_destroyer">Place Destroyer</button></li>
-    <li><button id="place_battleship">Place Battleship</button></li>
-    <li><input type="checkbox" id="is_vertical">Vertical</input></li>
-</ul>
+
 
 <script type="text/javascript" src="/assets/game.js"></script>
 <script>
