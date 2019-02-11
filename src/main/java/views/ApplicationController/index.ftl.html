@@ -3,7 +3,30 @@
 
 
 <h1>The Battleship game</h1>
-<button id="tutorial" onclick="window.location.href = './tutorial.html';">Tutorial</button>
+
+<div class="tooltip">Tutorial
+    <span class="tooltiptext">
+        <ol>
+            <li>Player places the 3 ships somewhere on the board.</li>
+            <ul>
+                <li>The 3 ships are: Battleship (4), Cruiser (3) and Destroyer (2).</li>
+                <li>The ships can only be placed vertically or horizontally.</li>
+                <li>Diagonal placement is not allowed.</li>
+                <li>No part of a ship may hang off the edge of the board.</li>
+                <li>Ships may not overlap each other.</li>
+                <li>No ships may be placed on another ship.</li>
+            </ul>
+            <li>AI 's turn to place the 3 ships somewhere on the board.</li>
+            <ul>
+                <li>Once the guessing begins, the players may not move the ships.</li>
+                <li>HIT: If player have correctly selected a space that occupied by one of AIs' ships.</li>
+                <li>MISSED: If player selected a space that has no ship.</li>
+                <li>SUNK: When all of player's occupied space for one ship (2,3,4) have been hit.</li>
+            </ul>
+            <li>When all of one players' ship have been sunk, the game ends.</li>
+        </ol>
+    </span>
+</div>
 
 <div class="container" align="center" style="display: flex">
     <table id="player" class="battleGrid flex-item" align="center" style="margin: auto 20px auto auto">
