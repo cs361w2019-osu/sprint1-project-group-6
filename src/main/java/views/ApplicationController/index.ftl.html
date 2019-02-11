@@ -31,40 +31,7 @@
     </div>
 
 </h1>
-<!-----Buttons that wait to be placed.---->
-<h2>
-    <form id="myName" action="/action_page.php" style="font-family: Georgia">
-        Player Name:<input class="playerName" type="text" name="playername" name="playerName"><br>
-    </form>
-    <button onclick="displayName()" style="font-family: Georgia; font-size: 20px">Enter</button>
-    <p id="print"></p>
-</h2>
-<!----------------------------------------->
 
-
-<div class="tooltip">Tutorial
-    <span class="tooltiptext">
-        <ol>
-            <li>Player places the 3 ships somewhere on the board.</li>
-            <ul>
-                <li>The 3 ships are: Battleship (4), Cruiser (3) and Destroyer (2).</li>
-                <li>The ships can only be placed vertically or horizontally.</li>
-                <li>Diagonal placement is not allowed.</li>
-                <li>No part of a ship may hang off the edge of the board.</li>
-                <li>Ships may not overlap each other.</li>
-                <li>No ships may be placed on another ship.</li>
-            </ul>
-            <li>AI 's turn to place the 3 ships somewhere on the board.</li>
-            <ul>
-                <li>Once the guessing begins, the players may not move the ships.</li>
-                <li>HIT: If player have correctly selected a space that occupied by one of AIs' ships.</li>
-                <li>MISSED: If player selected a space that has no ship.</li>
-                <li>SUNK: When all of player's occupied space for one ship (2,3,4) have been hit.</li>
-            </ul>
-            <li>When all of one players' ship have been sunk, the game ends.</li>
-        </ol>
-    </span>
-</div>
 
 <div class="container" align="center" style="display: flex">
     <table id="player" class="battleGrid flex-item" align="center" style="margin: auto 20px auto auto">
@@ -75,44 +42,71 @@
 </div>
 
 <div class="container" align="center" style="display: flex">
-    <div id="messageBoxDiv" class="flex-item" align="center" style="margin: 40px 20px auto auto; height: 200px; width: 500px; text-align: left;">
+    <div id="messageBoxDiv" class="flex-item" align="center" style="margin: 40px 20px auto auto; height: 200px; width: 500px; text-align: left; overflow-y: scroll;">
     </div>
 
-    <div id="scoreShipsDiv" class="fixed" align="center" style="margin: 40px auto auto 20px; height: 200px; width: 500px;">
-        <div id="scoreCardDiv"></div>
-        <table class="score-card">
-            <tr>
-                <th></th>
-                <th>Player</th>
-                <th>AI</th>
-            </tr>
-            <tr>
-                <td>Hit</td>
-                <td id="playerHits">0</td>
-                <td id="aiHits">0</td>
-            </tr>
-            <tr>
-                <td>Miss</td>
-                <td id="playerMiss">0</td>
-                <td id="aiMiss">0</td>
-            </tr>
-            <tr>
-                <td>Sunk</td>
-                <td id="playerSunk">0</td>
-                <td id="aiSunk">0</td>
-            </tr>
-        </table>
-        <div id="placeShipsDiv"></div>
+    <div id="scoreShipsDiv" class="fixed" align="left" style="margin: 40px auto auto 20px; height: 200px; width: 500px;">
+        <div id="scoreCardDiv" style="display: none";>
+            <table class="score-card">
+                <tr>
+                    <th></th>
+                    <th>Player</th>
+                    <th>AI</th>
+                </tr>
+                <tr>
+                    <td>Hit</td>
+                    <td id="playerHits">0</td>
+                    <td id="aiHits">0</td>
+                </tr>
+                <tr>
+                    <td>Miss</td>
+                    <td id="playerMiss">0</td>
+                    <td id="aiMiss">0</td>
+                </tr>
+                <tr>
+                    <td>Sunk</td>
+                    <td id="playerSunk">0</td>
+                    <td id="aiSunk">0</td>
+                </tr>
+            </table>
+        </div>
+        <div id="placeShipsDiv">
+            <form id="myName" action="/action_page.php" style="font-family: Georgia">Player Name:<input class="playerName" type="text" name="playerName">
+                <button onclick="displayName()" style="font-family: Georgia; font-size: 15px">Enter</button>
+                <br>
+            </form>
+
+
+                <ul class="ships">
+                    <div>
+                        <div class="flipButton">
+                            <label>
+                                <input type="checkbox" id="is_vertical" name="is_vertical"><span>Flip</span>
+                            </label>
+                        </div>
+                        <li><input type="button" value="Minesweeper" name="shipSelect" id="place_minesweeper" style="margin-right:20px;">
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                        </li>
+                    </div>
+
+                    <li><input type="button" value="Destroyer" name="shipSelect" id="place_destroyer" style="margin-right:41px;">
+                        <div class="shipBox"></div>
+                        <div class="shipBox"></div>
+                        <div class="shipBox"></div>
+                    </li>
+                    <li><input type="button" value="Battleship" name="shipSelect" id="place_battleship" style="margin-right:40px;">
+                        <div class="inline">
+                            <div class="shipBox""></div>
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                        </div>
+                    </li>
+                </ul>
+        </div>
     </div>
 </div>
-
-<ul>
-    <li><button id="place_minesweeper">Place Minesweeper</button></li>
-    <li><button id="place_destroyer">Place Destroyer</button></li>
-    <li><button id="place_battleship">Place Battleship</button></li>
-    <li><input type="checkbox" id="is_vertical">Vertical</input></li>
-
-</ul>
 
 <script type="text/javascript" src="/assets/game.js"></script>
 <script>
