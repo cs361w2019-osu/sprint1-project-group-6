@@ -24,12 +24,14 @@ function makeGrid(table, isPlayer) {
 }
 
 function markHits(board, elementId, surrenderText) {
+    let oldHit = this[elementId + "HIT"];
+    let oldMiss = this[elementId + "MISS"];
+    let oldSunk = this[elementId + "SUNK"];
     this[elementId + "HIT"] = 0;
     this[elementId + "MISS"] = 0;
     this[elementId + "SUNK"] = 0;
 
     board.attacks.forEach((attack) => {
-        console.log(elementId + " " + attack.result)
         this[elementId + attack.result] += 1;
 
         let className;
@@ -40,10 +42,57 @@ function markHits(board, elementId, surrenderText) {
         else if (attack.result === "SUNK") {
             this[elementId + "HIT"] += 1;
             className = "hit"
-        } else if (attack.result === "SURRENDER")
-            alert(surrenderText);
+        } else if (attack.result === "SURRENDER") {
+            let color = "red";
+            if(elementId === "opponent") {
+                color = "green";
+            }
+            printMsgCustom(surrenderText, color);
+        }
         document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
     });
+
+    if(oldMiss - this[elementId + "MISS"] !== 0) {
+        printMsg(elementId, "MISS");
+    } else if(oldSunk - this[elementId + "SUNK"] !== 0) {
+        printMsg(elementId, "SUNK");
+    } else if(oldHit - this[elementId + "HIT"] !== 0) {
+        printMsg(elementId, "HIT");
+    }
+}
+
+function printMsg(elementId, result) {
+    let msg = "";
+
+    if(elementId === "opponent") {
+        if(result === "HIT") {
+            msg = ("You hit their ship!");
+        } else if(result === "MISS") {
+            msg = ("You missed their ship!");
+        } else if(result === "SUNK") {
+            msg = ("You sunk their ship!");
+        }
+    } else if(elementId === "player") {
+        if(result === "HIT") {
+            msg = ("They hit your ship!");
+        } else if(result === "MISS") {
+            msg = ("They missed your ship!");
+        } else if(result === "SUNK") {
+            msg = ("They sunk your ship!");
+        }
+    }
+
+    printMsgCustom(msg, "black");
+}
+
+function printMsgCustom(msg, color) {
+
+    var span = document.createElement("SPAN");
+    span.textContent = msg;
+    span.style.color = color;
+    let br = document.createElement('br');
+    span.appendChild(br);
+    document.getElementById("messageBoxDiv").appendChild(span);
 }
 
 function redrawGrid() {
@@ -114,7 +163,7 @@ function sendXhr(method, url, data, handler) {
     var req = new XMLHttpRequest();
     req.addEventListener("load", function(event) {
         if (req.status != 200) {
-            alert("Cannot complete the action");
+            printMsgCustom("Cannot complete the action", "red");
             return;
         }
         handler(JSON.parse(req.responseText));
