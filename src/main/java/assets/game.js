@@ -4,6 +4,13 @@ var game;
 var shipType;
 var vertical;
 
+var playerHIT = 0;
+var playerMISS = 0;
+var playerSUNK = 0;
+var opponentHIT = 0;
+var opponentMISS = 0;
+var opponentSUNK = 0;
+
 function makeGrid(table, isPlayer) {
     for (i=0; i<10; i++) {
         let row = document.createElement('tr');
@@ -17,15 +24,23 @@ function makeGrid(table, isPlayer) {
 }
 
 function markHits(board, elementId, surrenderText) {
+    this[elementId + "HIT"] = 0;
+    this[elementId + "MISS"] = 0;
+    this[elementId + "SUNK"] = 0;
+
     board.attacks.forEach((attack) => {
+        console.log(elementId + " " + attack.result)
+        this[elementId + attack.result] += 1;
+
         let className;
         if (attack.result === "MISS")
             className = "miss";
         else if (attack.result === "HIT")
             className = "hit";
-        else if (attack.result === "SUNK")
+        else if (attack.result === "SUNK") {
+            this[elementId + "HIT"] += 1;
             className = "hit"
-        else if (attack.result === "SURRENDER")
+        } else if (attack.result === "SURRENDER")
             alert(surrenderText);
         document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
     });
@@ -45,6 +60,18 @@ function redrawGrid() {
     }));
     markHits(game.opponentsBoard, "opponent", "You won the game");
     markHits(game.playersBoard, "player", "You lost the game");
+
+    updateScoreCard();
+}
+
+function updateScoreCard() {
+    // assign playerMiss to opponentMISS because opponent miss is misses on ai board, but playerMiss is list of how many misses player has on ai board
+    document.getElementById("playerMiss").innerHTML = opponentMISS;
+    document.getElementById("playerHits").innerHTML = opponentHIT;
+    document.getElementById("playerSunk").innerHTML = opponentSUNK;
+    document.getElementById("aiMiss").innerHTML = playerMISS;
+    document.getElementById("aiHits").innerHTML = playerHIT;
+    document.getElementById("aiSunk").innerHTML = playerSUNK;
 }
 
 var oldListener;
@@ -122,6 +149,16 @@ function place(size) {
             cell.classList.toggle("placed");
         }
     }
+}
+
+function displayName() {
+    var x = document.getElementById("myName");
+    var n = "";
+    var i;
+    for(i=0;i<x.length;i++){
+        n += x.elements[i].value + "<br>";
+    }
+    document.getElementById("print").innerHTML = n;
 }
 
 function initGame() {
