@@ -157,6 +157,7 @@ function cellClick() {
             placedShips++;
             if (placedShips == 3) {
                 isSetup = false;
+                document.getElementById("playerNameDisp").innerHTML = displayName();
                 document.getElementById("scoreCardDiv").style.display = "block";
                 document.getElementById("placeShipsDiv").style.display = "none";
                 registerCellListener((e) => {});
@@ -212,13 +213,9 @@ function place(size) {
 }
 
 function displayName() {
-    var x = document.getElementById("myName");
-    var n = "";
-    var i;
-    for(i=0;i<x.length;i++){
-        n += x.elements[i].value + "<br>";
-    }
-    document.getElementById("print").innerHTML = n;
+    var x = document.getElementById("playerName");
+    name = x.value;
+    return name;
 }
 
 function initGame() {
