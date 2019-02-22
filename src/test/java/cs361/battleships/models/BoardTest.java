@@ -82,4 +82,5 @@ public class BoardTest {
         assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 5);
 
     }
+
 }

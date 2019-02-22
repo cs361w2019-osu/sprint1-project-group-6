@@ -46,6 +46,10 @@
     background-color: blue;
 }
 
+.bang {
+    background-color: blueviolet;
+}
+
 .shipBox {
   width:15px;
   height:15px;

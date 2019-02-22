@@ -40,6 +40,7 @@ public class Game {
             return false;
         }
 
+
         Result opponentAttackResult;
         do {
             // AI does random attacks, so it might attack the same spot twice
@@ -48,6 +49,7 @@ public class Game {
         } while(opponentAttackResult.getResult() == INVALID);
 
         return true;
+
     }
 
     public char randCol() {

@@ -9,10 +9,12 @@ import java.util.List;
 public class Ship {
 
 	@JsonProperty private List<Square> occupiedSquares = new ArrayList<>();
+	@JsonProperty private Square captainQuarter;
 
 	private String kind;
 	private int length = 0;
 	public int health = 0;
+
 
 	public Ship() {
 	}
@@ -27,11 +29,28 @@ public class Ship {
 			length = 4;
 		}
 		this.health = length;
+		createCaptainQuarter();
 	}
 
 	public List<Square> getOccupiedSquares() {
 		return occupiedSquares;
 	}
+
+	public Square getCaptainQuarter() {
+		return this.captainQuarter;
+	}
+
+	public void createCaptainQuarter()
+	{
+		if(kind.equals("BATTLESHIP"))
+			captainQuarter = occupiedSquares.get(2);
+		else if(kind.equals("DESTROYER"))
+			captainQuarter = occupiedSquares.get(1);
+		else if(kind.equals("MINESWEEPER"))
+			captainQuarter = occupiedSquares.get(0);
+	}
+
+
 
 	public void setOccupiedSquares(List<Square> newOccupiedSquares) {
 		if (!occupiedSquares.isEmpty()) {
@@ -40,8 +59,25 @@ public class Ship {
 		for(Square square : newOccupiedSquares) {
 			occupiedSquares.add(square);
 		}
-	}
 
+	}
+	/*
+	public void checkCaptinQ(char col, int row, boolean isVertical)
+	{
+		for(int i = 0; i<captainQIndex ; i++)
+		{
+			if(!isVertical)
+			{
+				occupiedSquares.add(new Square(row,(char)(col+i)));
+			}
+			else
+			{
+				occupiedSquares.add(new Square(row+i, col));
+			}
+		}
+		occupiedSquares.get(captainQIndex-2).setCaptainQbl(true);
+	}
+*/
 	public int getLength() {
 		return length;
 	}

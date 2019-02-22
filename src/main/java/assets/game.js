@@ -27,6 +27,7 @@ function markHits(board, elementId, surrenderText) {
     let oldHit = this[elementId + "HIT"];
     let oldMiss = this[elementId + "MISS"];
     let oldSunk = this[elementId + "SUNK"];
+    let oldBang = this[elementId + "BANG"];
     this[elementId + "HIT"] = 0;
     this[elementId + "MISS"] = 0;
     this[elementId + "SUNK"] = 0;
@@ -50,6 +51,10 @@ function markHits(board, elementId, surrenderText) {
             printMsgCustom(surrenderText, color);
             alert(surrenderText);
         }
+        else if (attack.result === "BANG")
+        {
+           className = "bang";
+        }
         document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
     });
 
@@ -59,7 +64,9 @@ function markHits(board, elementId, surrenderText) {
         printMsg(elementId, "SUNK");
     } else if(oldHit - this[elementId + "HIT"] !== 0) {
         printMsg(elementId, "HIT");
-    }
+    } else if (oldBang - this[elementId + "BANG"] !== 0)
+        printMsg(elementId, "BANG");
+
 }
 
 function printMsg(elementId, result) {

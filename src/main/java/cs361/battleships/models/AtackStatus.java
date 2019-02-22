@@ -28,4 +28,9 @@ public enum AtackStatus {
 	 */
 	INVALID,
 
+	/**
+	 * The result if captain's quarter get hit.
+	 */
+	BANG,
+
 }
