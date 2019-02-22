@@ -15,5 +15,14 @@ public class ResultTest {
         result.setResult(AtackStatus.MISS);
         assertSame(square,result.getLocation());
         assertEquals(AtackStatus.MISS,result.getResult());
+
+        Ship ship = new Ship("MINESWEEPER");
+        result.setShip(ship);
+        assertSame(ship, result.getShip());
+
+        Result result2 = new Result(square, ship, AtackStatus.HIT);
+        assertSame(ship, result2.getShip());
+        assertSame(AtackStatus.HIT, result2.getResult());
+        assertSame(square, result2.getLocation());
     }
 }
