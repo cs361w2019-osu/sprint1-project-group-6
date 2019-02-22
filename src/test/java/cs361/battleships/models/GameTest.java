@@ -33,13 +33,12 @@ public class GameTest {
             assertTrue(1 <= randRow && randRow <= 10);
         }
     }
-    
-    @Test
-    public void testVertical() {
-        Game game = new Game();
-        boolean randVert = game.randVertical();
-        assertTrue(randVert);
-    }
-
+//    
+//    @Test
+//    public void testVertical() {
+//        Game game = new Game();
+//        boolean randVert = game.randVertical();
+//        assertTrue(randVert);
+//    }
 }
 
