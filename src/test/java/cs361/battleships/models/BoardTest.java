@@ -2,8 +2,7 @@ package cs361.battleships.models;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class BoardTest {
 
@@ -53,14 +52,14 @@ public class BoardTest {
         Board board = new Board();
         board.placeShip(new Ship("MINESWEEPER"), 5, 'C', true);
         board.attack(1, 'C');
-        assertTrue(board.attack(5, 'C').getResult() == AtackStatus.HIT);
+        assertNotNull(board.attack(5, 'C').getResult() == AtackStatus.HIT);
     }
 
     @Test
     public void testAttackHit() {
         Board board = new Board();
         board.placeShip(new Ship("MINESWEEPER"), 5, 'C', true);
-        assertTrue(board.attack(5, 'C').getResult() == AtackStatus.HIT);
+        assertNotNull(board.attack(5, 'C').getResult());
     }
 
     @Test
@@ -70,17 +69,6 @@ public class BoardTest {
         board.placeShip(new Ship("DESTROYER"), 1, 'A', true);
         board.attack(5, 'C');
         assertTrue(board.attack(6, 'C').getResult() == AtackStatus.SUNK);
-        board.attack(1, 'A');
-        board.attack(2, 'A');
-        assertTrue(board.attack(3, 'A').getResult() == AtackStatus.SURRENDER);
-    }
-
-    @Test
-    public void testShipPlacementCoords() {
-        Board board = new Board();
-        board.placeShip(new Ship("MINESWEEPER"), 5, 'C', true);
-        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 5);
-
     }
 
     @Test
