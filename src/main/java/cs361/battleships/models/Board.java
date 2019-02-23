@@ -140,19 +140,15 @@ public class Board {
 				// Set all locations to be pulsed.
 				pulseRes.setLocation(new Square(x + i, (char)(y + j)));
 				pulseRes.setResult(AtackStatus.SHOWNOSHIP);
-				if (pulsedOutOfBounds(pulseRes)) {
-					break;
-				} else {
-					if(!(pulseRes.getLocation().getColumn() < 'A' || pulseRes.getLocation().getColumn() > 'J' || pulseRes.getLocation().getRow() < 1 || pulseRes.getLocation().getRow() > 10)) {
-						for (Ship ship : this.placedShips) {
-							for (Square shipSquare : ship.getOccupiedSquares()) {
-								if (shipSquare.getRow() == pulseRes.getLocation().getRow() && shipSquare.getColumn() == pulseRes.getLocation().getColumn()) {
-									pulseRes.setResult(AtackStatus.SHOWSHIP);
-								}
+				if(!(pulseRes.getLocation().getColumn() < 'A' || pulseRes.getLocation().getColumn() > 'J' || pulseRes.getLocation().getRow() < 1 || pulseRes.getLocation().getRow() > 10)) {
+					for (Ship ship : this.placedShips) {
+						for (Square shipSquare : ship.getOccupiedSquares()) {
+							if (shipSquare.getRow() == pulseRes.getLocation().getRow() && shipSquare.getColumn() == pulseRes.getLocation().getColumn()) {
+								pulseRes.setResult(AtackStatus.SHOWSHIP);
 							}
 						}
-						this.pulsed.add(pulseRes);
 					}
+					this.pulsed.add(pulseRes);
 				}
 			}
 		}
