@@ -28,4 +28,13 @@ public enum AtackStatus {
 	 */
 	INVALID,
 
+	/**
+	 * The result if the sonar pulse shows a ship.
+	 */
+	SHOWSHIP,
+
+	/**
+	 * The result if the sonar pulse does not show a ship.
+	 */
+	SHOWNOSHIP,
 }

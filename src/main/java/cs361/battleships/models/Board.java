@@ -7,6 +7,9 @@ public class Board {
 
 	private List<Ship> placedShips;
 	private List<Result> attacks;
+	private List<Result> pulsed;
+	private List<Result> pulsedCenters;
+	private int pulseDistFromCenter = 2;
 
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
@@ -15,6 +18,8 @@ public class Board {
 		// TODO Implement
 		this.placedShips = new ArrayList<>();
 		this.attacks = new ArrayList<>();
+		this.pulsed = new ArrayList<>();
+		this.pulsedCenters = new ArrayList<>();
 	}
 
 	/*
@@ -111,6 +116,69 @@ public class Board {
 		return atkRes;
 	}
 
+	/*
+	Used for sonar pulse attack.
+	 */
+	public Result pulse(int x, char y) {
+		// Check if square was already a pulse center
+		Result pulseCenterRes = new Result();
+		for (Result resToCheck : this.pulsedCenters) {
+			if (resToCheck.getLocation().getColumn() == y && resToCheck.getLocation().getRow() == x) {
+				pulseCenterRes.setResult(AtackStatus.INVALID);
+				this.pulsedCenters.add(pulseCenterRes);
+				return pulseCenterRes;
+			}
+		}
+		// Iterate through pulse left to right
+		for (int i = -(getPulseDistFromCenter()); i <= getPulseDistFromCenter(); i++) {
+			for (int j = -(getPulseDistFromCenter() - Math.abs(i)); j <= getPulseDistFromCenter() - Math.abs(i); j++) {
+				Result pulseRes = new Result();
+				// Set all locations to be pulsed.
+				pulseRes.setLocation(new Square(x + i, (char)(y + j)));
+				if (pulsedOutOfBounds(pulseRes)) {
+					break;
+				} else {
+					this.pulsed.add(pulseRes);
+				}
+
+				// Check for pulse center out of bounds
+				if ((x == pulseRes.getLocation().getRow() && y == pulseRes.getLocation().getColumn()) && (y < 'A' || y > 'J' || x < 0 || x > 10)) {
+					pulseRes.setResult(AtackStatus.INVALID);
+					this.pulsedCenters.add(pulseRes);
+					return pulseRes;
+				}
+
+				// Check if the pulse uncovers ships
+				for (Result resToCheck : this.pulsed) {
+					for (Ship ship : this.placedShips) {
+						for (Square shipSquare : ship.getOccupiedSquares()) {
+							if (shipSquare.getRow() == pulseRes.getLocation().getRow() && shipSquare.getColumn() == pulseRes.getLocation().getColumn()) {
+								pulseRes.setResult(AtackStatus.SHOWSHIP);
+								if ((x == pulseRes.getLocation().getRow() && y == pulseRes.getLocation().getColumn())) {
+									pulseCenterRes.setResult(AtackStatus.SHOWSHIP);
+								}
+							} else {
+								pulseRes.setResult(AtackStatus.SHOWNOSHIP);
+								if ((x == pulseRes.getLocation().getRow() && y == pulseRes.getLocation().getColumn())) {
+									pulseCenterRes.setResult(AtackStatus.SHOWNOSHIP);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return pulseCenterRes;
+	}
+
+	// Check if a pulsed squares is out of bounds
+	public boolean pulsedOutOfBounds(Result res) {
+		if (res.getLocation().getColumn() < 'A' || res.getLocation().getColumn() > 'J' || res.getLocation().getRow() < 0 || res.getLocation().getRow() > 10) {
+			return true;
+		}
+		return false;
+	}
+
 	public boolean allShipsSunk() {
 		for(Ship ship : this.placedShips) {
 			if(ship.isDead() != 1) {
@@ -119,6 +187,8 @@ public class Board {
 		}
 		return true;
 	}
+
+
 
 	public List<Ship> getShips() {
 		//TODO implement
@@ -138,5 +208,9 @@ public class Board {
 	public void setAttacks(List<Result> attacks) {
 		//TODO implement
 		this.attacks = attacks;
+	}
+
+	public int getPulseDistFromCenter() {
+		return pulseDistFromCenter;
 	}
 }
