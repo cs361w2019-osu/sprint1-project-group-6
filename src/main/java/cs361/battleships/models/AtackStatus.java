@@ -37,4 +37,6 @@ public enum AtackStatus {
 	 * The result if the sonar pulse does not show a ship.
 	 */
 	SHOWNOSHIP,
+
+	BANG,
 }

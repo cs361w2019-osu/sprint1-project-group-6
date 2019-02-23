@@ -13,6 +13,8 @@ public class Ship {
 	private String kind;
 	private int length = 0;
 	public int health = 0;
+	public int captainQHealth = 0;
+	public int captainQLocation = 0;
 
 	public Ship() {
 	}
@@ -20,10 +22,16 @@ public class Ship {
 	public Ship(String kind) {
 		this.kind = kind;
 		if (kind.equals("MINESWEEPER")) {
+			captainQHealth = 1;
+			captainQLocation = 0;
 			length = 2;
 		} else if (kind.equals("DESTROYER")) {
+			captainQHealth = 2;
+			captainQLocation = 1;
 			length = 3;
 		} else if (kind.equals("BATTLESHIP")) {
+			captainQHealth = 2;
+			captainQLocation = 2;
 			length = 4;
 		}
 		this.health = length;
@@ -42,6 +50,12 @@ public class Ship {
 		}
 	}
 
+	public int hitCaptain()
+	{
+		captainQHealth--;
+		return  captainQHealth;
+	}
+
 	public int getLength() {
 		return length;
 	}
@@ -55,7 +69,7 @@ public class Ship {
 	}
 
 	public int isDead() {
-		if(this.health <= 0) {
+		if(this.health <= 0 || this.captainQHealth <= 0) {
 			return 1;
 		} else {
 			return 0;

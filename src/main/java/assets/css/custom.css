@@ -50,6 +50,10 @@
     background-color: blue;
 }
 
+.bang {
+    background-color: green;
+}
+
 .shipBox {
   width:15px;
   height:15px;
