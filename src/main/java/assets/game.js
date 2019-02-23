@@ -34,19 +34,20 @@ function markHits(board, elementId, surrenderText) {
     this[elementId + "MISS"] = 0;
     this[elementId + "SUNK"] = 0;
 
-//    board.sonars.forEach((sonar) => {
-//        let className;
-//        if(sonar.result === "SHOWSHIP")
-//        {
-//            className = "empty";
-//        }
-//        else if(sonar.result === "SHOWNOSHIP")
-//        {
-//            className = "occupied";
-//        }
-//
-//        document.getElementById(elementId).rows[sonar.location.row-1].cells[sonar.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
-//    });
+    board.pulsed.forEach((sonar) => {
+        let className;
+        console.log(sonar.result);
+        if(sonar.result === "SHOWNOSHIP")
+        {
+            className = "empty";
+        }
+        else if(sonar.result === "SHOWSHIP")
+        {
+            className = "occupied";
+        }
+
+        document.getElementById(elementId).rows[sonar.location.row-1].cells[sonar.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
+    });
 
     board.attacks.forEach((attack) => {
         this[elementId + attack.result] += 1;

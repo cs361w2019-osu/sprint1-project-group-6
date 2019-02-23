@@ -1,13 +1,15 @@
 package cs361.battleships.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
 
+	@JsonProperty private List<Result> pulsed;
 	private List<Ship> placedShips;
 	private List<Result> attacks;
-	private List<Result> pulsed;
 	private List<Result> pulsedCenters;
 	private int pulseDistFromCenter = 2;
 
@@ -122,13 +124,15 @@ public class Board {
 	public Result pulse(int x, char y) {
 		// Check if square was already a pulse center
 		Result pulseCenterRes = new Result();
+		pulseCenterRes.setLocation(new Square(x, y));
 		for (Result resToCheck : this.pulsedCenters) {
-			if (resToCheck.getLocation().getColumn() == y && resToCheck.getLocation().getRow() == x) {
+			if (resToCheck.getLocation().getColumn() == y && resToCheck.getLocation().getRow() == x && (y < 'A' || y > 'J' || x < 0 || x > 10)) {
 				pulseCenterRes.setResult(AtackStatus.INVALID);
 				this.pulsedCenters.add(pulseCenterRes);
 				return pulseCenterRes;
 			}
 		}
+
 		// Iterate through pulse left to right
 		for (int i = -(getPulseDistFromCenter()); i <= getPulseDistFromCenter(); i++) {
 			for (int j = -(getPulseDistFromCenter() - Math.abs(i)); j <= getPulseDistFromCenter() - Math.abs(i); j++) {
@@ -138,36 +142,22 @@ public class Board {
 				if (pulsedOutOfBounds(pulseRes)) {
 					break;
 				} else {
-					this.pulsed.add(pulseRes);
-				}
-
-				// Check for pulse center out of bounds
-				if ((x == pulseRes.getLocation().getRow() && y == pulseRes.getLocation().getColumn()) && (y < 'A' || y > 'J' || x < 0 || x > 10)) {
-					pulseRes.setResult(AtackStatus.INVALID);
-					this.pulsedCenters.add(pulseRes);
-					return pulseRes;
-				}
-
-				// Check if the pulse uncovers ships
-				for (Result resToCheck : this.pulsed) {
-					for (Ship ship : this.placedShips) {
-						for (Square shipSquare : ship.getOccupiedSquares()) {
-							if (shipSquare.getRow() == pulseRes.getLocation().getRow() && shipSquare.getColumn() == pulseRes.getLocation().getColumn()) {
-								pulseRes.setResult(AtackStatus.SHOWSHIP);
-								if ((x == pulseRes.getLocation().getRow() && y == pulseRes.getLocation().getColumn())) {
-									pulseCenterRes.setResult(AtackStatus.SHOWSHIP);
-								}
-							} else {
-								pulseRes.setResult(AtackStatus.SHOWNOSHIP);
-								if ((x == pulseRes.getLocation().getRow() && y == pulseRes.getLocation().getColumn())) {
-									pulseCenterRes.setResult(AtackStatus.SHOWNOSHIP);
+					if(!(pulseRes.getLocation().getColumn() < 'A' || pulseRes.getLocation().getColumn() > 'J' || pulseRes.getLocation().getRow() < 0 || pulseRes.getLocation().getRow() > 10)) {
+						for (Ship ship : this.placedShips) {
+							for (Square shipSquare : ship.getOccupiedSquares()) {
+								if (shipSquare.getRow() == pulseRes.getLocation().getRow() && shipSquare.getColumn() == pulseRes.getLocation().getColumn()) {
+									pulseRes.setResult(AtackStatus.SHOWSHIP);
+								} else {
+									pulseRes.setResult(AtackStatus.SHOWNOSHIP);
 								}
 							}
 						}
+						this.pulsed.add(pulseRes);
 					}
 				}
 			}
 		}
+
 		return pulseCenterRes;
 	}
 
