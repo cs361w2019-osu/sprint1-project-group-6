@@ -95,10 +95,16 @@ public class Board {
 		}
 
 		for(Ship ship : this.placedShips) {
+            int i = 0;
 			for(Square shipSquare : ship.getOccupiedSquares()) {
 				if(shipSquare.getRow() == atkRes.getLocation().getRow() && shipSquare.getColumn() == atkRes.getLocation().getColumn()) {
-					atkRes.setResult(AtackStatus.HIT);
-					ship.hitShip();
+				    if(i == ship.captainQLocation) {
+				        ship.hitCaptain();
+				        atkRes.setResult(AtackStatus.BANG);
+                    } else {
+                        atkRes.setResult(AtackStatus.HIT);
+                        ship.hitShip();
+                    }
 					if(ship.isDead() == 1) {
 						atkRes.setResult(AtackStatus.SUNK);
 					}
@@ -110,6 +116,7 @@ public class Board {
 					this.attacks.add(atkRes);
 					return atkRes;
 				}
+				i++;
 			}
 		}
 
