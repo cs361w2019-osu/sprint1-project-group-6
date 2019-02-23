@@ -36,7 +36,6 @@ function markHits(board, elementId, surrenderText) {
 
     board.pulsed.forEach((sonar) => {
         let className;
-        console.log(sonar.result);
         if(sonar.result === "SHOWNOSHIP")
         {
             className = "empty";
