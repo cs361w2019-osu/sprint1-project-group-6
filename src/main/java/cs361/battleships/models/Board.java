@@ -113,7 +113,9 @@ public class Board {
 						atkRes.setResult(AtackStatus.SURRENDER);
 					}
 
-					this.attacks.add(atkRes);
+					if(atkRes.getResult() != AtackStatus.BANG) {
+						this.attacks.add(atkRes);
+					}
 					return atkRes;
 				}
 				i++;
