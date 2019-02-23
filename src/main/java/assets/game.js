@@ -4,6 +4,9 @@ var game;
 var shipType;
 var vertical;
 
+var isSonar = false;
+var sonarCount = 2;
+
 var playerHIT = 0;
 var playerMISS = 0;
 var playerSUNK = 0;
@@ -31,6 +34,20 @@ function markHits(board, elementId, surrenderText) {
     this[elementId + "MISS"] = 0;
     this[elementId + "SUNK"] = 0;
 
+    board.pulsed.forEach((sonar) => {
+        let className;
+        if(sonar.result === "SHOWNOSHIP")
+        {
+            className = "empty";
+        }
+        else if(sonar.result === "SHOWSHIP")
+        {
+            className = "occupied";
+        }
+
+        document.getElementById(elementId).rows[sonar.location.row-1].cells[sonar.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
+    });
+
     board.attacks.forEach((attack) => {
         this[elementId + attack.result] += 1;
 
@@ -42,6 +59,13 @@ function markHits(board, elementId, surrenderText) {
         else if (attack.result === "SUNK") {
             this[elementId + "HIT"] += 1;
             className = "hit"
+
+            // Hide the sonar button until the player has sunk a ship
+            if(elementId === "opponent")
+            {
+                document.getElementById("sonarButton").style.display = 'block';
+            }
+
         } else if (attack.result === "SURRENDER") {
             let color = "red";
             if(elementId === "opponent") {
@@ -163,7 +187,16 @@ function cellClick() {
                 registerCellListener((e) => {});
             }
         });
-    } else {
+    } else if(isSonar) {
+        sendXhr("POST", "/sonar", {game: game, x: row, y: col}, function(data) {
+            game = data;
+            redrawGrid();
+            sonarCount--;
+            isSonar = false;
+        });
+    }
+
+    else {
         sendXhr("POST", "/attack", {game: game, x: row, y: col}, function(data) {
             game = data;
             redrawGrid();
@@ -221,6 +254,9 @@ function displayName() {
 function initGame() {
     makeGrid(document.getElementById("opponent"), false);
     makeGrid(document.getElementById("player"), true);
+
+    document.getElementById("sonarButton").style.display = 'none';
+
     document.getElementById("place_minesweeper").addEventListener("click", function(e) {
         shipType = "MINESWEEPER";
        registerCellListener(place(2));
@@ -233,6 +269,16 @@ function initGame() {
         shipType = "BATTLESHIP";
        registerCellListener(place(4));
     });
+
+    document.getElementById("sonarButton").addEventListener("click", function(e) {
+        if(sonarCount > 0) {
+            isSonar = true;
+        }
+        else {
+            printMsgCustom("You cannot use a sonar more than twice", "red");
+        }
+    });
+
     sendXhr("GET", "/game", {}, function(data) {
         game = data;
     });
