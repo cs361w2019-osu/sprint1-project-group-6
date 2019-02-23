@@ -128,7 +128,7 @@ input[name="shipSelect"] {
     margin-right: 30px;
     margin-top: -6px;
     display: inline-block;
-    background-color:#606060
+    background-color:#606060;
     border-bottom: 1px dotted #3a3a3a;
 }
 

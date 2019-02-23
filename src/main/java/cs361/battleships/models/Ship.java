@@ -16,7 +16,6 @@ public class Ship {
 	private int length = 0;
 	public int health = 0;
 
-
 	public Ship() {
 	}
 
@@ -58,7 +57,6 @@ public class Ship {
 			CQhealth = 1;
 		}
 	}
-
 
 	public void setOccupiedSquares(List<Square> newOccupiedSquares) {
 		if (!occupiedSquares.isEmpty()) {
