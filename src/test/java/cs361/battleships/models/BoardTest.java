@@ -82,4 +82,20 @@ public class BoardTest {
         assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 5);
 
     }
+
+    @Test
+    public void testPulseOutOfBounds() {
+        Board board = new Board();
+        Result res = new Result();
+        res.setLocation(new Square(5, 'Q'));
+        boolean result = board.pulsedOutOfBounds(res);
+        assertTrue(result);
+    }
+
+    @Test
+    public void testPulse() {
+        Board board = new Board();
+        board.pulse(1, 'A');
+        assertTrue(board.pulsed.size() == 6);
+    }
 }

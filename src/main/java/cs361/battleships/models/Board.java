@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Board {
 
-	@JsonProperty private List<Result> pulsed;
+	@JsonProperty public List<Result> pulsed;
 	private List<Ship> placedShips;
 	private List<Result> attacks;
 	private List<Result> pulsedCenters;
@@ -158,7 +158,7 @@ public class Board {
 
 	// Check if a pulsed squares is out of bounds
 	public boolean pulsedOutOfBounds(Result res) {
-		if (res.getLocation().getColumn() < 'A' || res.getLocation().getColumn() > 'J' || res.getLocation().getRow() < 0 || res.getLocation().getRow() > 10) {
+		if (res.getLocation().getColumn() < 'A' || res.getLocation().getColumn() > 'J' || res.getLocation().getRow() < 1 || res.getLocation().getRow() > 10) {
 			return true;
 		}
 		return false;
