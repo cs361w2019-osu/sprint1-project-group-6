@@ -30,6 +30,10 @@
     background-color: gray;
 }
 
+.empty {
+    background-color: gray;
+}
+
 .occupied {
     background-color: black;
 }

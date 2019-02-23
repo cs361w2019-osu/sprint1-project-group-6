@@ -50,6 +50,12 @@ public class Game {
         return true;
     }
 
+    public boolean sonar(int x, char  y) {
+        Result playerSonar = opponentsBoard.pulse(x, y);
+
+        return true;
+    }
+
     public char randCol() {
         //Column = 10
         Random rand = new Random();

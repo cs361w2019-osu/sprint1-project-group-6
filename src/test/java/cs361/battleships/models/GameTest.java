@@ -2,8 +2,7 @@ package cs361.battleships.models;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class GameTest {
 
@@ -33,13 +32,31 @@ public class GameTest {
             assertTrue(1 <= randRow && randRow <= 10);
         }
     }
-    
+
     @Test
     public void testVertical() {
         Game game = new Game();
         boolean randVert = game.randVertical();
-        assertTrue(randVert);
+        assertNotNull(randVert);
     }
 
+    @Test
+    public void testAttack () {
+        Game game = new Game();
+        boolean atk1 = game.attack(0, 'A');
+        boolean atk2 = game.attack(0, 'A');
+        assertTrue(atk1);
+        assertFalse(atk2);
+    }
+
+    @Test
+    public void testShipPlacement() {
+        Game game = new Game();
+        Ship ship = new Ship("MINESWEEPER");
+        boolean ship1 = game.placeShip(ship, 0, 'A', false);
+        boolean ship2 = game.placeShip(ship, 5, 'D', false);
+        assertTrue(ship1);
+        assertFalse(ship2);
+    }
 }
 
