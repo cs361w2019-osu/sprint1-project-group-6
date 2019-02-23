@@ -62,6 +62,7 @@ public class Board {
 
 		Ship newShip = new Ship(ship.getKind());
 		newShip.setOccupiedSquares(shipLoc);
+		newShip.createCaptainQ();
 		placedShips.add(newShip);
 		return true;
 	}
@@ -91,7 +92,16 @@ public class Board {
 			for(Square shipSquare : ship.getOccupiedSquares()) {
 				if(shipSquare.getRow() == atkRes.getLocation().getRow() && shipSquare.getColumn() == atkRes.getLocation().getColumn()) {
 					atkRes.setResult(AtackStatus.HIT);
-					ship.hitShip();
+
+					if((ship.getCaptainQ().getRow() == atkRes.getLocation().getRow()) && (ship.getCaptainQ().getColumn() == atkRes.getLocation().getColumn()))
+					{
+						ship.hitCaptain();
+						atkRes.setResult(AtackStatus.BANG);
+					}
+					else{
+						ship.hitShip();
+					}
+
 					if(ship.isDead() == 1) {
 						atkRes.setResult(AtackStatus.SUNK);
 					}
@@ -119,6 +129,7 @@ public class Board {
 		}
 		return true;
 	}
+
 
 	public List<Ship> getShips() {
 		//TODO implement

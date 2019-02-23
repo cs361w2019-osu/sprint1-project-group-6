@@ -9,7 +9,8 @@ import java.util.List;
 public class Ship {
 
 	@JsonProperty private List<Square> occupiedSquares = new ArrayList<>();
-	@JsonProperty private Square captainQuarter;
+	@JsonProperty private Square captainQ;
+	@JsonProperty private int CQhealth;
 
 	private String kind;
 	private int length = 0;
@@ -28,28 +29,35 @@ public class Ship {
 		} else if (kind.equals("BATTLESHIP")) {
 			length = 4;
 		}
+		captainQ = getCaptainQ();
 		this.health = length;
-		createCaptainQuarter();
+
 	}
 
 	public List<Square> getOccupiedSquares() {
 		return occupiedSquares;
 	}
 
-	public Square getCaptainQuarter() {
-		return this.captainQuarter;
+	public Square getCaptainQ() {
+		return this.captainQ;
 	}
 
-	public void createCaptainQuarter()
-	{
-		if(kind.equals("BATTLESHIP"))
-			captainQuarter = occupiedSquares.get(2);
-		else if(kind.equals("DESTROYER"))
-			captainQuarter = occupiedSquares.get(1);
-		else if(kind.equals("MINESWEEPER"))
-			captainQuarter = occupiedSquares.get(0);
-	}
+	public void createCaptainQ() {
 
+		if (kind.equals("BATTLESHIP")) {
+			captainQ.setRow(occupiedSquares.get(2).getRow());
+			captainQ.setColumn(occupiedSquares.get(2).getColumn());
+			CQhealth = 2;
+		} else if (kind.equals("DESTROYER")) {
+			captainQ.setRow(occupiedSquares.get(1).getRow());
+			captainQ.setColumn(occupiedSquares.get(1).getColumn());
+			CQhealth = 2;
+		} else if (kind.equals("MINESWEEPER")) {
+			captainQ.setRow(occupiedSquares.get(0).getRow());
+			captainQ.setColumn(occupiedSquares.get(0).getColumn());
+			CQhealth = 1;
+		}
+	}
 
 
 	public void setOccupiedSquares(List<Square> newOccupiedSquares) {
@@ -61,23 +69,12 @@ public class Ship {
 		}
 
 	}
-	/*
-	public void checkCaptinQ(char col, int row, boolean isVertical)
-	{
-		for(int i = 0; i<captainQIndex ; i++)
-		{
-			if(!isVertical)
-			{
-				occupiedSquares.add(new Square(row,(char)(col+i)));
-			}
-			else
-			{
-				occupiedSquares.add(new Square(row+i, col));
-			}
-		}
-		occupiedSquares.get(captainQIndex-2).setCaptainQbl(true);
+
+	public void hitCaptain(){
+		this.CQhealth--;
 	}
-*/
+
+
 	public int getLength() {
 		return length;
 	}
@@ -91,6 +88,9 @@ public class Ship {
 	}
 
 	public int isDead() {
+		if(this.CQhealth <= 0)
+			return 1;
+
 		if(this.health <= 0) {
 			return 1;
 		} else {

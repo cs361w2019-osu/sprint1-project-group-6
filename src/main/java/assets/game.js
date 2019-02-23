@@ -31,6 +31,7 @@ function markHits(board, elementId, surrenderText) {
     this[elementId + "HIT"] = 0;
     this[elementId + "MISS"] = 0;
     this[elementId + "SUNK"] = 0;
+    this[elementId + "BANG"] = 0;
 
     board.attacks.forEach((attack) => {
         this[elementId + attack.result] += 1;
@@ -53,7 +54,8 @@ function markHits(board, elementId, surrenderText) {
         }
         else if (attack.result === "BANG")
         {
-           className = "bang";
+           this[elementId + "BANG"] += 1;
+            className = "bang";
         }
         document.getElementById(elementId).rows[attack.location.row-1].cells[attack.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
     });
@@ -66,7 +68,6 @@ function markHits(board, elementId, surrenderText) {
         printMsg(elementId, "HIT");
     } else if (oldBang - this[elementId + "BANG"] !== 0)
         printMsg(elementId, "BANG");
-
 }
 
 function printMsg(elementId, result) {
@@ -79,6 +80,8 @@ function printMsg(elementId, result) {
             msg = ("You missed their ship!");
         } else if(result === "SUNK") {
             msg = ("You sunk their ship!");
+        } else if(result === "BANG"){
+            msg = ("You hit the captain's quarter");
         }
     } else if(elementId === "player") {
         if(result === "HIT") {
@@ -87,6 +90,8 @@ function printMsg(elementId, result) {
             msg = ("They missed your ship!");
         } else if(result === "SUNK") {
             msg = ("They sunk your ship!");
+        } else if (result === "BANG") {
+            msg = ("They hit your captain's quarter");
         }
     }
 
@@ -123,6 +128,13 @@ function redrawGrid() {
     game.playersBoard.ships.forEach((ship) => ship.occupiedSquares.forEach((square) => {
         document.getElementById("player").rows[square.row-1].cells[square.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add("occupied");
     }));
+
+   /*
+    game.playersBoard.ship.forEach((ship) => ship.occupiedSquares.forEach((square) => {
+        document.getElementById("player").rows[ship.captainQ.row-1].cells[ship.captainQ.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add("occupied");
+    }));
+    */
+
     markHits(game.opponentsBoard, "opponent", "You won the game");
     markHits(game.playersBoard, "player", "You lost the game");
 

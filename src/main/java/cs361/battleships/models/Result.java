@@ -4,6 +4,7 @@ package cs361.battleships.models;
 public class Result {
 
 	private Square location;
+	private Square captainQ;
 	private Ship ship;
 	private AtackStatus result;
 
@@ -24,6 +25,7 @@ public class Result {
 		this.result = result;
 	}
 
+
 	public Ship getShip() {
 		return this.ship;
 	}
@@ -32,6 +34,7 @@ public class Result {
 		this.ship = ship;
 	}
 
+
 	public Square getLocation() {
 		return this.location;
 	}
@@ -39,4 +42,9 @@ public class Result {
 	public void setLocation(Square square) {
 		this.location = square;
 	}
+
+
+	public Square getCaptainQ() {return this.captainQ;}
+
+	public void setCaptainQ(Square square){this.captainQ = square;}
 }
