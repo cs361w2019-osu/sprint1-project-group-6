@@ -15,6 +15,7 @@ public class Ship {
 	public int health = 0;
 	public int captainQHealth = 0;
 	public int captainQLocation = 0;
+	public boolean submerged = false;
 
 	public Ship() {
 	}
@@ -33,6 +34,10 @@ public class Ship {
 			captainQHealth = 2;
 			captainQLocation = 2;
 			length = 4;
+		} else if (kind.equals("SUBMARINE")) {
+			captainQHealth = 2;
+			captainQLocation = 1;
+			length = 5;
 		}
 		this.health = length;
 	}

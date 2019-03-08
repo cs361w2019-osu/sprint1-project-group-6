@@ -15,8 +15,9 @@
 	        <ol>
 	            <li>Player places the 3 ships somewhere on the board.</li>
 	            <ul>
-	                <li>The 3 ships are: Battleship (4), Cruiser (3) and Destroyer (2).</li>
+	                <li>The 4 ships are: Submarine (5), Battleship (4), Cruiser (3), and Destroyer (2).</li>
 	                <li>The ships can only be placed vertically or horizontally.</li>
+                    <li>The submarine can be placed under an existing ship.</li>
 	                <li>Diagonal placement is not allowed.</li>
 	                <li>No part of a ship may hang off the edge of the board.</li>
 	                <li>Ships may not overlap each other.</li>
@@ -100,6 +101,16 @@
                     <li><input type="button" value="Battleship" name="shipSelect" id="place_battleship" style="margin-right:40px;">
                         <div class="inline">
                             <div class="shipBox""></div>
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                            <div class="shipBox"></div>
+                        </div>
+                    </li>
+                    <li><input type="button" value="Submarine" name="shipSelect" id="place_submarine" style="margin-right:34px;">
+                        <div class="inline">
+                            <div class="shipBox" id="sub_weird_box"></div>
+                            <br>
+                            <div class="shipBox"></div>
                             <div class="shipBox"></div>
                             <div class="shipBox"></div>
                             <div class="shipBox"></div>

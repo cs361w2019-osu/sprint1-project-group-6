@@ -12,6 +12,7 @@ public class Board {
 	private List<Result> attacks;
 	private List<Result> pulsedCenters;
 	private int pulseDistFromCenter = 2;
+	private boolean sub_submerged = false;
 
 	/*
 	DO NOT change the signature of this method. It is used by the grading scripts.
@@ -30,7 +31,8 @@ public class Board {
 	public boolean placeShip(Ship ship, int x, char y, boolean isVertical) {
 		// TODO Implement
 		List<Square> shipLoc = new ArrayList<>();
-
+		boolean isSubmarine = ship.getKind().equals("SUBMARINE");
+		// Check if already placed
 		for(Ship shipToCheck : placedShips) {
 			if(shipToCheck.getKind().equals(ship.getKind())) {
 				return false;
@@ -39,33 +41,67 @@ public class Board {
 
 		// Calculate the location of the ship based off of type, starting location, and verticality
 		if (isVertical) {
-			if (x + ship.getLength() < 11 && x > 0) {
+			if (x + ship.getLength() < 11 && x > 0 && !isSubmarine) {
 				for (int i = 0; i < ship.getLength(); i++) {
 					shipLoc.add(new Square(x + i, y));
 				}
+			} else if (isSubmarine && x > 0 && x + ship.getLength()-1 <= 11 && y + 2 - 'A' < 11) {
+				for (int i = 0; i < ship.getLength() - 1; i++) {
+					shipLoc.add(new Square(x + i, y));
+				}
+				shipLoc.add(new Square(x + 2, (char)(y + 1)));
 			} else {
 				return false;
 			}
 		} else {
-			if (y + ship.getLength() - 'A' < 11 && y >= 'A') {
+			if (y + ship.getLength() - 'A' < 11 && y >= 'A' && !isSubmarine) {
 				for (int i = 0; i < ship.getLength(); i++) {
 					shipLoc.add(new Square(x, (char)(y + i)));
 				}
+			} else if (isSubmarine && x > 1 && y + ship.getLength()-1 - 'A' < 11) {
+				for (int i = 0; i < ship.getLength() - 1; i++) {
+					shipLoc.add(new Square(x, (char)(y + i)));
+				}
+				shipLoc.add(new Square(x - 1, (char)(y + 2)));
 			} else {
 				return false;
 			}
 		}
 
-		// Check if there is already a ship in this location
-		for (Square locToCheck : shipLoc) {
-			for (Ship shipToCheck : placedShips) {
-				for (Square shipCheckLocToCheck : shipToCheck.getOccupiedSquares()) {
-					if (locToCheck.getRow() == shipCheckLocToCheck.getRow() && locToCheck.getColumn() == shipCheckLocToCheck.getColumn()) {
-						return false;
+		// If sub, then check and mark as submerged
+		if (isSubmarine) {
+			for (Square locToCheck : shipLoc) {
+				for (Ship shipToCheck : placedShips) {
+					for (Square shipCheckLocToCheck : shipToCheck.getOccupiedSquares()) {
+						if (locToCheck.getRow() == shipCheckLocToCheck.getRow() && locToCheck.getColumn() == shipCheckLocToCheck.getColumn()) {
+							sub_submerged = true;
+							break;
+						}
+					}
+				}
+			}
+		} else {
+			// Check if there is already a ship in this location
+			// Check for submarine, if submarine is in square, then mark it as submerged
+			for (Square locToCheck : shipLoc) {
+				for (Ship shipToCheck : placedShips) {
+					if (!shipToCheck.getKind().equals("SUBMARINE")) {
+						for (Square shipCheckLocToCheck : shipToCheck.getOccupiedSquares()) {
+							if (locToCheck.getRow() == shipCheckLocToCheck.getRow() && locToCheck.getColumn() == shipCheckLocToCheck.getColumn()) {
+								return false;
+							}
+						}
+					} else {
+						for (Square shipCheckLocToCheck : shipToCheck.getOccupiedSquares()) {
+							if (locToCheck.getRow() == shipCheckLocToCheck.getRow() && locToCheck.getColumn() == shipCheckLocToCheck.getColumn()) {
+								sub_submerged = true;
+							}
+						}
 					}
 				}
 			}
 		}
+
 
 		Ship newShip = new Ship(ship.getKind());
 		newShip.setOccupiedSquares(shipLoc);
