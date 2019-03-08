@@ -31,6 +31,7 @@
 	            </ul>
 	            <li>When all of one players' ship have been sunk, the game ends.</li>
                 <li>Once you kill one ship, then you can use the pulse up to 2 times. It allows you to see the enemies ship in a small area</li>
+                <li>Once you kill two ships, then you can move your ships twice in a direction (N, S, E, W)</li>
 	        </ol>
 	    </span>
     </div>
@@ -43,10 +44,18 @@
 
     <table id="opponent" class="battleGrid fixed" align="center" style="margin: auto auto auto 20px">
     </table>
+
 </div>
 
 <div class="container" align="center" style="display: flex">
     <div id="messageBoxDiv" class="flex-item" align="center" style="margin: 40px 20px auto auto; height: 200px; width: 500px; text-align: left; overflow-y: scroll;">
+    </div>
+
+    <div id="moveBtnDiv" class="flex-item" align="center" style="margin-top: 20px; height: 200px; width: 400px;">
+        <button id="moveNorthButton" align="center" style="font-size: 35px; font-family: Georgia; float: center; margin-bottom:10px;margin-right: 5px">Move North</button>
+        <button id="moveWestButton" align="center" style="font-size: 35px; font-family: Georgia; float: center; margin-bottom:10px;margin-right: 5px">Move West</button>
+        <button id="moveEastButton" align="center" style="font-size: 35px; font-family: Georgia; float: center; margin-bottom:10px;margin-right: 5px">Move East</button>
+        <button id="moveSouthButton" align="center" style="font-size: 35px; font-family: Georgia; float: center; margin-bottom:10px;margin-right: 5px">Move South</button>
     </div>
 
     <div id="scoreShipsDiv" class="fixed" align="left" style="margin: 40px auto auto 20px; height: 200px; width: 500px;">

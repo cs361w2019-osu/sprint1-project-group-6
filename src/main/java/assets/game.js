@@ -13,6 +13,7 @@ var playerSUNK = 0;
 var opponentHIT = 0;
 var opponentMISS = 0;
 var opponentSUNK = 0;
+var numMovesLeft = 2;
 
 function makeGrid(table, isPlayer) {
     for (i=0; i<10; i++) {
@@ -66,6 +67,9 @@ function markHits(board, elementId, surrenderText) {
             if(elementId === "opponent")
             {
                 document.getElementById("sonarButton").style.display = 'block';
+                if(opponentSUNK >= 2) {
+                    document.getElementById("moveBtnDiv").style.visibility = 'visible';
+                }
             }
 
         } else if (attack.result === "SURRENDER") {
@@ -258,6 +262,7 @@ function initGame() {
     makeGrid(document.getElementById("player"), true);
 
     document.getElementById("sonarButton").style.display = 'none';
+    document.getElementById("moveBtnDiv").style.visibility = 'hidden';
 
     document.getElementById("place_minesweeper").addEventListener("click", function(e) {
         shipType = "MINESWEEPER";
@@ -278,6 +283,62 @@ function initGame() {
         }
         else {
             printMsgCustom("You cannot use a sonar more than twice", "red");
+        }
+    });
+
+    document.getElementById("moveNorthButton").addEventListener("click", function(e) {
+        if(numMovesLeft !== 0) {
+            numMovesLeft--;
+            sendXhr("POST", "/move", {game: game, direction: 0}, function(data) {
+                game = data;
+                redrawGrid();
+                sonarCount--;
+                isSonar = false;
+            });
+        } else {
+            printMsgCustom('You can only use 2 moves', "red");
+        }
+    });
+
+    document.getElementById("moveSouthButton").addEventListener("click", function(e) {
+        if(numMovesLeft !== 0) {
+            numMovesLeft--;
+            sendXhr("POST", "/move", {game: game, direction: 2}, function(data) {
+                game = data;
+                redrawGrid();
+                sonarCount--;
+                isSonar = false;
+            });
+        } else {
+            printMsgCustom('You can only use 2 moves', "red");
+        }
+    });
+
+    document.getElementById("moveWestButton").addEventListener("click", function(e) {
+        if(numMovesLeft !== 0) {
+            numMovesLeft--;
+            sendXhr("POST", "/move", {game: game, direction: 1}, function(data) {
+                game = data;
+                redrawGrid();
+                sonarCount--;
+                isSonar = false;
+            });
+        } else {
+            printMsgCustom('You can only use 2 moves', "red");
+        }
+    });
+
+    document.getElementById("moveEastButton").addEventListener("click", function(e) {
+        if(numMovesLeft !== 0) {
+            numMovesLeft--;
+            sendXhr("POST", "/move", {game: game, direction: 3}, function(data) {
+                game = data;
+                redrawGrid();
+                sonarCount--;
+                isSonar = false;
+            });
+        } else {
+            printMsgCustom('You can only use 2 moves', "red");
         }
     });
 

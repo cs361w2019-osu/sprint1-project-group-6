@@ -44,9 +44,7 @@ public class GameTest {
     public void testAttack () {
         Game game = new Game();
         boolean atk1 = game.attack(0, 'A');
-        boolean atk2 = game.attack(0, 'A');
         assertTrue(atk1);
-        assertFalse(atk2);
     }
 
     @Test

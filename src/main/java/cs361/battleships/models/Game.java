@@ -56,6 +56,12 @@ public class Game {
         return true;
     }
 
+    public boolean move(int direction) {
+        playersBoard.moveShip(direction);
+
+        return true;
+    }
+
     public char randCol() {
         //Column = 10
         Random rand = new Random();
