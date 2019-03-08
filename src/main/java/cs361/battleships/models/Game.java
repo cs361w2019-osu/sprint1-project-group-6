@@ -56,6 +56,11 @@ public class Game {
         return true;
     }
 
+    public boolean space(int x, char y){
+        Result playerSpace = opponentsBoard.spaceLaser(x, y);
+        return true;
+    }
+
     public char randCol() {
         //Column = 10
         Random rand = new Random();

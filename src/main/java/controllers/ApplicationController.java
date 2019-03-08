@@ -49,4 +49,14 @@ public class ApplicationController {
             return Results.badRequest();
         }
     }
+
+    public Result space(Context context, AttackGameAction g) {
+        Game game = g.getGame();
+        boolean result = game.attack(g.getActionRow(), g.getActionColumn());
+        if(result){
+            return Results.json().render(game);
+        }else{
+            return Results.badRequest();
+        }
+    }
 }

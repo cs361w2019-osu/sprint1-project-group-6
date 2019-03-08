@@ -1,5 +1,6 @@
 package cs361.battleships.models;
 
+import antlr.ANTLRTokenTypes;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -8,9 +9,14 @@ import java.util.List;
 public class Board {
 
 	@JsonProperty public List<Result> pulsed;
+
+	@JsonProperty public List<Result> spaceL;
 	private List<Ship> placedShips;
 	private List<Result> attacks;
 	private List<Result> pulsedCenters;
+
+	private List<Result> spacelaserCenters;
+
 	private int pulseDistFromCenter = 2;
 
 	/*
@@ -22,6 +28,9 @@ public class Board {
 		this.attacks = new ArrayList<>();
 		this.pulsed = new ArrayList<>();
 		this.pulsedCenters = new ArrayList<>();
+
+		this.spaceL = new ArrayList<>();
+		this.spacelaserCenters = new ArrayList<>();
 	}
 
 	/*
@@ -173,6 +182,28 @@ public class Board {
 		return false;
 	}
 
+/* Space laser attack*/
+	public Result spaceLaser(int x, char y) {
+        Result spaceLaserRes = new Result();
+        spaceLaserRes.setLocation(new Square(x, y));
+        for(Result resCheck : this.spacelaserCenters) {
+			if (resCheck.getLocation().getColumn() == y && resCheck.getLocation().getRow() == x && (y < 'A' || y > 'J' || x < 0 || x > 10)) {
+				spaceLaserRes.setResult(AtackStatus.INVALID);
+				this.attacks.add(spaceLaserRes);
+				return  spaceLaserRes;
+			}
+		}
+        return spaceLaserRes;
+    }
+
+    public boolean spaceLaserInBound(Result resL){
+	    if(resL.getLocation().getColumn()<'A'|| resL.getLocation().getColumn()>'J'|| resL.getLocation().getRow() < 1 || resL.getLocation().getRow() > 10)
+	    {
+	        return true;
+        }
+	    return false;
+    }
+
 	public boolean allShipsSunk() {
 		for(Ship ship : this.placedShips) {
 			if(ship.isDead() != 1) {
@@ -181,8 +212,6 @@ public class Board {
 		}
 		return true;
 	}
-
-
 
 	public List<Ship> getShips() {
 		//TODO implement
