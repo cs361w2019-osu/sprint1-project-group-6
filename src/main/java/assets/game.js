@@ -185,7 +185,7 @@ function cellClick() {
             game = data;
             redrawGrid();
             placedShips++;
-            if (placedShips == 3) {
+            if (placedShips == 4) {
                 isSetup = false;
                 document.getElementById("playerNameDisp").innerHTML = displayName();
                 document.getElementById("scoreCardDiv").style.display = "block";
@@ -224,7 +224,7 @@ function sendXhr(method, url, data, handler) {
     req.send(JSON.stringify(data));
 }
 
-function place(size) {
+function place(size, is_sub) {
     return function() {
         let row = this.parentNode.rowIndex;
         let col = this.cellIndex;
@@ -248,6 +248,25 @@ function place(size) {
             }
             cell.classList.toggle("placed");
         }
+
+        if (is_sub) {
+            let cell;
+            if(vertical) {
+                let tableRow = table.rows[row + 2];
+                if (tableRow === undefined) {
+                    // ship is over the edge; let the back end deal with it
+                    return;
+                }
+                cell = tableRow.cells[col + 1];
+            } else {
+                cell = table.rows[row - 1].cells[col + 2];
+            }
+            if (cell === undefined) {
+                // ship is over the edge; let the back end deal with it
+                return;
+            }
+            cell.classList.toggle("placed");
+        }
     }
 }
 
@@ -266,15 +285,19 @@ function initGame() {
 
     document.getElementById("place_minesweeper").addEventListener("click", function(e) {
         shipType = "MINESWEEPER";
-       registerCellListener(place(2));
+       registerCellListener(place(2, false));
     });
     document.getElementById("place_destroyer").addEventListener("click", function(e) {
         shipType = "DESTROYER";
-       registerCellListener(place(3));
+       registerCellListener(place(3, false));
     });
     document.getElementById("place_battleship").addEventListener("click", function(e) {
         shipType = "BATTLESHIP";
-       registerCellListener(place(4));
+       registerCellListener(place(4, false));
+    });
+    document.getElementById("place_submarine").addEventListener("click", function(e) {
+            shipType = "SUBMARINE";
+           registerCellListener(place(4, true));
     });
 
     document.getElementById("sonarButton").addEventListener("click", function(e) {
