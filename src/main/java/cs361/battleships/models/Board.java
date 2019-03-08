@@ -166,7 +166,6 @@ public class Board {
 				currShipId++;
 			}
 
-			System.out.println(dist);
 			if(dist <= 1) {
 				finalShipList.add(newShipList.get(closestShipId));
 				newShipList.remove(closestShipId);
