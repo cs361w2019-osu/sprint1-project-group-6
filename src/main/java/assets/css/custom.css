@@ -179,3 +179,7 @@ th {
 .score-card tr:hover {
   background-color: #ddd;
 }
+
+#sub_weird_box {
+  margin-left:46px;
+}

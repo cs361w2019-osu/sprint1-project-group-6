@@ -60,6 +60,11 @@ public class Game {
         Result playerSpace = opponentsBoard.spaceLaser(x, y);
         return true;
     }
+  
+    public boolean move(int direction) {
+        playersBoard.moveShip(direction);
+        return true;
+    }
 
     public char randCol() {
         //Column = 10

@@ -86,4 +86,25 @@ public class BoardTest {
         board.pulse(1, 'A');
         assertTrue(board.pulsed.size() == 6);
     }
+
+    @Test
+    public void testMoveEdge() {
+        Board board = new Board();
+        board.placeShip(new Ship("MINESWEEPER"), 1, 'A', false);
+        board.moveShip(0);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 1);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getColumn() == 'A');
+
+        board.moveShip(1);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 1);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getColumn() == 'A');
+
+        board.moveShip(3);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 1);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getColumn() == 'B');
+
+        board.moveShip(2);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getRow() == 2);
+        assertTrue(board.getShips().get(0).getOccupiedSquares().get(0).getColumn() == 'B');
+    }
 }
