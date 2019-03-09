@@ -82,7 +82,7 @@ function markHits(board, elementId, surrenderText) {
             {
                 document.getElementById("sonarButton").style.display = 'block';
                 document.getElementById("spaceLaserButton").style.display = 'block';
-                if(opponentSUNK >= 2) {
+                if(opponentSUNK >= 3) {
                     document.getElementById("moveBtnDiv").style.visibility = 'visible';
                 }
             }
