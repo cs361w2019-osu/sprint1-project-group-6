@@ -13,6 +13,30 @@ public class BoardTest {
     }
 
     @Test
+    public void testSpaceLaserInBound() {
+        Board board = new Board();
+        Result res = board.spaceLaser(1, 'A');
+        assertFalse(board.spaceLaserInBound(res));
+        Result res2 = board.spaceLaser(-1, 'A');
+        assertTrue(board.spaceLaserInBound(res2));
+    }
+
+    @Test
+    public void testSpaceLaser() {
+        Board board = new Board();
+        board.spaceLaser(1, 'A');
+        assertTrue(board.spaceLaser(1, 'A').getResult() == null);
+    }
+
+    @Test
+    public void testGetAttacks() {
+        Board board = new Board();
+        Result res = new Result();
+        res.setLocation(new Square(5, 'Q'));
+        assertTrue(board.getAttacks() != null);
+    }
+
+    @Test
     public void testPlacementBounds() {
         Board board = new Board();
         assertFalse(board.placeShip(new Ship("MINESWEEPER"), 11, 'C', true));

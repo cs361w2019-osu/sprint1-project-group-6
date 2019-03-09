@@ -34,6 +34,18 @@ public class GameTest {
     }
 
     @Test
+    public void testSpace() {
+        Game game = new Game();
+        assertTrue(game.space(1, 'A'));
+    }
+
+    @Test
+    public void testMove() {
+        Game game = new Game();
+        assertTrue(game.move(1));
+    }
+
+    @Test
     public void testVertical() {
         Game game = new Game();
         boolean randVert = game.randVertical();
