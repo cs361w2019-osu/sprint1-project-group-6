@@ -144,9 +144,16 @@ public class Board {
 		// Where we check to ships to see if it is hit
 		for(Ship ship : this.placedShips) {
             int i = 0;
+            boolean checkingSub = false;
+            if (ship.getKind().equals("SUBMARINE")) {
+            	checkingSub = true;
+			}
 			for(Square shipSquare : ship.getOccupiedSquares()) {
 				if(shipSquare.getRow() == atkRes.getLocation().getRow() && shipSquare.getColumn() == atkRes.getLocation().getColumn()) {
-				    if(i == ship.captainQLocation) {
+				    if (checkingSub && sub_submerged) {
+				    	continue;
+					}
+					if(i == ship.captainQLocation) {
 				        ship.hitCaptain();
 				        atkRes.setResult(AtackStatus.BANG);
                     } else {

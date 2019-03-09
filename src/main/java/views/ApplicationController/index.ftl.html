@@ -21,12 +21,14 @@
                     <li>The submarine can be placed under an existing ship.</li>
 	                <li>Diagonal placement is not allowed.</li>
 	                <li>No part of a ship may hang off the edge of the board.</li>
-	                <li>Ships may not overlap each other.</li>
+	                <li>Ships may not overlap each other, with the exception of the submarine.</li>
 	                <li>No ships may be placed on another ship.</li>
 	            </ul>
 	            <li>AI 's turn to place the 3 ships somewhere on the board.</li>
 	            <ul>
 	                <li>Once the guessing begins, the players may not move the ships.</li>
+                    <li>A regular bomb can be placed, or after 2 hits, a space laser can be used to hit a submarine, only if it is submerged.</li>
+                    <li>An activation code will be applied after sinking the first ship, sos that the space laser can be used.</li>
 	                <li>HIT: If player have correctly selected a space that occupied by one of AIs' ships.</li>
 	                <li>MISSED: If player selected a space that has no ship.</li>
 	                <li>SUNK: When all of player's occupied space for one ship (2,3,4) have been hit.</li>
