@@ -339,10 +339,15 @@ function initGame() {
         if(spaceLaserCount > 0){
             isSpaceLaser = true;
         }
+        if(spaceLaserCount > 0 && spaceLaserCount < 2){
+            printMsgCustom("Activation Code:0000","purple");
+        }
+
         else {
             printMsgCustom("You can only use Space Laser twice", "red");
         }
     });
+
     document.getElementById("moveNorthButton").addEventListener("click", function(e) {
         if(numMovesLeft !== 0) {
             numMovesLeft--;
