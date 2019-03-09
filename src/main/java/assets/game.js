@@ -7,6 +7,9 @@ var vertical;
 var isSonar = false;
 var sonarCount = 2;
 
+var isSpaceLaser = false;
+var spaceLaserCount = 2;
+
 var playerHIT = 0;
 var playerMISS = 0;
 var playerSUNK = 0;
@@ -43,8 +46,19 @@ function markHits(board, elementId, surrenderText) {
             } else if (sonar.result === "SHOWSHIP") {
                 className = "occupied";
             }
-
             document.getElementById(elementId).rows[sonar.location.row - 1].cells[sonar.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
+        });
+    }
+
+    if(board.spaceL){
+        board.spaceL.forEach((space) => {
+            let className;
+            if(space.result == "SHOWNOSHIP"){
+                className = "empty";
+            }else if (space.result == "SHOWSHIP"){
+                className = "occupied";
+            }
+        document.getElementById(elementId).rows[space.location.row - 1].cells[space.location.column.charCodeAt(0) - 'A'.charCodeAt(0)].classList.add(className);
         });
     }
 
@@ -67,6 +81,7 @@ function markHits(board, elementId, surrenderText) {
             if(elementId === "opponent")
             {
                 document.getElementById("sonarButton").style.display = 'block';
+                document.getElementById("spaceLaserButton").style.display = 'block';
                 if(opponentSUNK >= 2) {
                     document.getElementById("moveBtnDiv").style.visibility = 'visible';
                 }
@@ -194,13 +209,22 @@ function cellClick() {
             }
         });
     } else if(isSonar) {
-        sendXhr("POST", "/sonar", {game: game, x: row, y: col}, function(data) {
+        sendXhr("POST", "/sonar", {game: game, x: row, y: col}, function (data) {
             game = data;
             redrawGrid();
             sonarCount--;
             isSonar = false;
         });
     }
+
+        else if(isSpaceLaser){
+            sendXhr("POST", "/space", {game: game, x: row, y: col},function(data) {
+                game = data;
+                redrawGrid();
+                spaceLaserCount--;
+                isSpaceLaser = false;
+            });
+        }
 
     else {
         sendXhr("POST", "/attack", {game: game, x: row, y: col}, function(data) {
@@ -281,6 +305,8 @@ function initGame() {
     makeGrid(document.getElementById("player"), true);
 
     document.getElementById("sonarButton").style.display = 'none';
+    document.getElementById("spaceLaserButton").style.display = 'none';
+
     document.getElementById("moveBtnDiv").style.visibility = 'hidden';
 
     document.getElementById("place_minesweeper").addEventListener("click", function(e) {
@@ -309,6 +335,14 @@ function initGame() {
         }
     });
 
+    document.getElementById("spaceLaserButton").addEventListener("click", function(e) {
+        if(spaceLaserCount > 0){
+            isSpaceLaser = true;
+        }
+        else {
+            printMsgCustom("You can only use Space Laser twice", "red");
+        }
+    });
     document.getElementById("moveNorthButton").addEventListener("click", function(e) {
         if(numMovesLeft !== 0) {
             numMovesLeft--;

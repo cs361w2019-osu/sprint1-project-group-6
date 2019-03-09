@@ -56,9 +56,13 @@ public class Game {
         return true;
     }
 
+    public boolean space(int x, char y){
+        Result playerSpace = opponentsBoard.spaceLaser(x, y);
+        return true;
+    }
+  
     public boolean move(int direction) {
         playersBoard.moveShip(direction);
-
         return true;
     }
 

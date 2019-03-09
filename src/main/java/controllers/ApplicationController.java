@@ -50,7 +50,16 @@ public class ApplicationController {
         }
     }
 
-    public Result move(Context context, MoveGameAction g) {
+    public Result space(Context context, AttackGameAction g) {
+        Game game = g.getGame();
+        boolean result = game.attack(g.getActionRow(), g.getActionColumn());
+        if(result){
+            return Results.json().render(game);
+        }else{
+            return Results.badRequest();
+        }
+    }
+     public Result move(Context context, MoveGameAction g) {
         Game game = g.getGame();
         boolean result = game.move(g.getDirection());
         if (result) {
